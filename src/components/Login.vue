@@ -3,7 +3,9 @@
 </template>
 
 <script>
-var SpotifyWebApi = require("spotify-web-api-node");
+const SpotifyWebApi = require("spotify-web-api-node");
+import { access } from "fs";
+import { setTimeout } from "timers";
 export default {
   methods: {
     async auth() {
@@ -19,9 +21,9 @@ export default {
 
       let authorizeURL = await spotifyApi.createAuthorizeURL(scopes, state);
 
-      console.log(authorizeURL);
+      let code = await this.getCode(authorizeURL);
 
-      window.open(authorizeURL, "_self");
+      // DU MÅSTE GÖRA SERVERSODFJSDUH FISDFGIJS
 
       spotifyApi.authorizationCodeGrant(code).then(
         function(data) {
@@ -38,8 +40,37 @@ export default {
         }
       );
     },
-    test() {
-      
+    async getCode(authorizeURL) {
+      let open = window.open(authorizeURL, "", "height=630 width=500");
+      let found = false;
+      let timer = await setInterval(() => {
+        let urlParams = new URL(open.location).searchParams;
+        let code = urlParams.get("code");
+        if (code) {
+          console.log(code);
+          clearInterval(timer);
+          open.close();
+          return code;
+        }
+      }, 2000);
+    },
+    async test() {
+      let scopes = ["user-read-private", "user-read-email"],
+        redirectUri = "http://localhost:8080/callback",
+        clientId = "115a0fafb3a7416b8dce3989aaba0653",
+        state = "kork",
+        authorizationUri = "https://accounts.spotify.com/authorize",
+        accessTokenUri = "https://accounts.spotify.com/api/token";
+
+      var auth = new ClientOAuth2({
+        clientId: clientId,
+        accessTokenUri: accessTokenUri,
+        authorizationUri: authorizationUri,
+        redirectUri: redirectUri,
+        state: state,
+        scopes: scopes
+      });
+      console.log(auth);
     }
   }
 };

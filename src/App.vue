@@ -17,7 +17,8 @@ export default {
   components: { TopNav, Player },
   data() {
     return {
-      loggedIn: false
+      loggedIn: false,
+      auth: null
     }
   },
   methods: {
