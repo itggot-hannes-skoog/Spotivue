@@ -47,7 +47,6 @@ export default {
         let urlParams = new URL(open.location).searchParams;
         let code = urlParams.get("code");
         if (code) {
-          console.log(code);
           clearInterval(timer);
           open.close();
           return code;

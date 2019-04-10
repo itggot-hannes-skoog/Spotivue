@@ -4,17 +4,17 @@
     <main>
       <router-view></router-view>
     </main>
-    <Player/>
+    <BottomNav/>
   </div>
 </template>
 
 <script>
-import TopNav from "@/components/TopNav";
-import Player from "@/components/Player";
+import TopNav from "@/components/Top/TopNav";
+import BottomNav from "@/components/Bottom/BottomNav";
 
 export default {
   name: "spotivue",
-  components: { TopNav, Player },
+  components: { TopNav, BottomNav },
   data() {
     return {
       loggedIn: false,
