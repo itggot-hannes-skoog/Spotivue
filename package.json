@@ -8,7 +8,13 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.17",
+    "@fortawesome/free-solid-svg-icons": "^5.8.1",
+    "@fortawesome/vue-fontawesome": "^0.1.6",
+    "cookie-parser": "^1.4.4",
     "core-js": "^2.6.5",
+    "cors": "^2.8.5",
+    "querystring": "^0.2.0",
     "vue": "^2.6.6"
   },
   "devDependencies": {
@@ -20,6 +26,8 @@
     "client-oauth2": "^4.2.3",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "express": "^4.16.4",
+    "moment": "^2.24.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
     "spotify-web-api-node": "^4.0.0",

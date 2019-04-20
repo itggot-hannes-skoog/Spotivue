@@ -1,10 +1,16 @@
 <template>
   <div class="playlists">
     <div v-if="true" class="container">
-      <div v-for="item in data" :key="item" class="playlist">
+      <router-link
+        :to="`/playlist/${playlist.id}`"
+        tag="div"
+        v-for="playlist in playlists"
+        :key="playlist.id"
+        class="playlist"
+      >
         <img src="@/assets/hannes.png" alt="bild">
-        <h2>Playlist</h2>
-      </div>
+        <h2>{{playlist.name.toUpperCase()}}</h2>
+      </router-link>
     </div>
   </div>
 </template>
@@ -13,7 +19,12 @@
 export default {
   data() {
     return {
-      data: [1, 2, 3, 4, 5, 6, 7, 8]
+      playlists: [
+        { id: 1, name: "playlist" },
+        { id: 2, name: "playlist" },
+        { id: 3, name: "playlist" },
+        { id: 4, name: "playlist" }
+      ]
     };
   }
 };

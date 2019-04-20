@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300|Poppins|Titillium+Web');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300|Poppins|Titillium+Web|Quicksand');
 * {margin: 0}
 $light: #F6F7EB;
 $red: #E94F37;
@@ -11,6 +11,7 @@ $open: 'Open Sans', sans-serif;
 $tit: 'Titillium Web', sans-serif;
 $opencon: 'Open Sans Condensed', sans-serif;
 $pop: 'Poppins', sans-serif;
+$quick: 'Quicksand', sans-serif;
 
 %center {
     display: flex;
@@ -72,7 +73,7 @@ $pop: 'Poppins', sans-serif;
                     color: white;
                     opacity: 0;
                     position: absolute;
-                    font-family: $tit;
+                    font-family: $opencon;
                     text-align: center;
                 }
 
@@ -85,6 +86,30 @@ $pop: 'Poppins', sans-serif;
         height: 100vh;
         box-sizing: border-box;
         background: $darker;
+
+        .playlist {
+            width: 100%;
+        }
+
+        .songs {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            padding: 0 2rem;
+            
+            .song {
+                display: flex;
+                background: $sky;
+                height: 50px;
+                align-items: center;
+                width: 100%;
+                margin: 1px 0;
+
+                .play {
+                }
+            }
+
+        }
     }
 
     #bottom-nav {
@@ -95,9 +120,11 @@ $pop: 'Poppins', sans-serif;
         position: fixed;
 
         #player {
+            flex-direction: column;
+            @extend %center;
 
             .playback-slider {
-                margin: 20px;
+                width: 80%;
             }
         }
     }
