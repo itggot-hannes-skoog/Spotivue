@@ -1,6 +1,6 @@
 <template>
   <div class="song">
-    <i class="play" @click="play(song.id)">
+    <i class="play" @click="play(song.track.uri)">
       <font-awesome-icon icon="play-circle" size="2x"/>
     </i>
     <h2>{{song.track.name}}</h2>
@@ -10,19 +10,18 @@
 
 <script>
 import moment from "moment";
-import api from "@/api"
 export default {
   name: "song",
-  props: ["song"],
+  props: ["song", "context"],
   data() {
     return {
       moment: moment
     };
   },
   methods: {
-      play(id) {
-          api.player.play(id)
-      }
+    play(uri) {
+      this.spotify.play({ context_uri: this.context, offset: {uri: uri} });
+    }
   }
 };
 </script>

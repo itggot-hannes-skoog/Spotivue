@@ -2,8 +2,8 @@
   <section id="player">
     <div class="playback-slider">
       <vue-slider
-        v-model="position"
-        :max="1000"
+        v-model="currentPlayback.progress_ms"
+        :max="currentPlayback.item.duration_ms"
         :dot-size="15"
         :process-style="{'background': '#44BBA4'}"
         :bg-style="{'background': '#3F88C5'}"
@@ -11,16 +11,23 @@
     </div>
     <nav class="player-controls">
       <font-awesome-icon @click="prevSong()" icon="step-backward" size="2x"/>
-      <font-awesome-icon @click="playPause()" :icon="playing ? 'pause-circle' : 'play-circle'" size="3x"/>
+      <font-awesome-icon
+        @click="playPause()"
+        :icon="playing ? 'pause-circle' : 'play-circle'"
+        size="3x"
+      />
       <font-awesome-icon @click="nextSong()" icon="step-forward" size="2x"/>
     </nav>
+    <div class="playing">
+      <h3>{{this.currentPlayback.item.name}}</h3>
+      <h4 v-for="artist in currentPlayback.item.artists" :key="artist.id">{{artist.name}}  </h4>
+    </div>
   </section>
 </template>
 
 <script>
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
-import api from "@/api"
 export default {
   components: {
     VueSlider
@@ -28,23 +35,35 @@ export default {
   data() {
     return {
       position: 0,
-      playing: false
+      playing: false,
+      currentPlayback: null
     };
+  },
+  mounted: function() {
+    this.getCurrentPlayback();
   },
   methods: {
     playPause() {
       if (this.playing) {
-        api.spotify.player.pause()
+        this.spotify.pause();
       } else {
-        api.spotify.player.play()
+        this.spotify.play();
       }
-      this.playing = !this.playing
+      this.playing = !this.playing;
+      this.getCurrentPlayback();
     },
     nextSong() {
-      api.spotify.player.next()
+      this.spotify.skipToNext();
+      this.getCurrentPlayback();
     },
     prevSong() {
-      api.spotify.player.previous()
+      this.spotify.skipToPrevious();
+      this.getCurrentPlayback();
+    },
+    getCurrentPlayback() {
+      this.spotify.getMyCurrentPlaybackState().then(data => {
+        this.currentPlayback = data.body;
+      });
     }
   }
 };

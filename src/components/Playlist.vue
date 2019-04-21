@@ -4,7 +4,7 @@
       <h1>{{this.playlist.name}}</h1>
     </header>
     <main class="songs">
-      <Song v-for="song in playlist.tracks.items" :key="song.track.id" :song="song"/>
+      <Song v-for="song in playlist.tracks.items" :key="song.track.id" :context="playlist.uri" :song="song"/>
     </main>
   </div>
 </template>

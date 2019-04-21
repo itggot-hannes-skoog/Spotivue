@@ -11,7 +11,6 @@
 <script>
 import TopNav from "@/components/Top/TopNav";
 import BottomNav from "@/components/Bottom/BottomNav";
-import api from "@/api";
 
 export default {
   name: "spotivue",
