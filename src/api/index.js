@@ -1,5 +1,6 @@
-import player from "./player"
+import auth from "./auth"
+import spotify from "./spotify"
 
 export default {
-    player
+    auth, spotify
 }

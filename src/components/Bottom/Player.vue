@@ -34,17 +34,17 @@ export default {
   methods: {
     playPause() {
       if (this.playing) {
-        api.player.pause()
+        api.spotify.player.pause()
       } else {
-        api.player.play()
+        api.spotify.player.play()
       }
       this.playing = !this.playing
     },
     nextSong() {
-      api.player.next()
+      api.spotify.player.next()
     },
     prevSong() {
-      api.player.previous()
+      api.spotify.player.previous()
     }
   }
 };

@@ -8,10 +8,14 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faPlayCircle, faStepForward, faStepBackward, faPauseCircle)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-import SpotifyWebApi from 'spotify-web-api-node'
+import Spotify from 'spotify-web-api-node'
 import VueSpotify from 'vue-spotify'
 
-Vue.use(VueSpotify, SpotifyWebApi)
+Vue.use(VueSpotify, new Spotify())
+
+import VueSession from 'vue-session'
+
+Vue.use(VueSession)
 
 Vue.config.productionTip = false
 

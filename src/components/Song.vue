@@ -3,8 +3,8 @@
     <i class="play" @click="play(song.id)">
       <font-awesome-icon icon="play-circle" size="2x"/>
     </i>
-    <h2>{{song.name}}</h2>
-    <h3>{{moment.utc(song.length).format('mm:ss')}}</h3>
+    <h2>{{song.track.name}}</h2>
+    <h3>{{moment.utc(song.track.duration_ms).format('mm:ss')}}</h3>
   </div>
 </template>
 

@@ -1,10 +1,10 @@
 <template>
   <div class="playlist">
     <header>
-      <h1>Playlist {{$route.params.id}}</h1>
+      <h1>{{this.playlist.name}}</h1>
     </header>
     <main class="songs">
-      <Song v-for="song in songs" :key="song.id" :song="song"/>
+      <Song v-for="song in playlist.tracks.items" :key="song.track.id" :song="song"/>
     </main>
   </div>
 </template>
@@ -17,13 +17,21 @@ export default {
   },
   data() {
     return {
-      songs: [
-          { id: 1, name: "låt1", length: 189545 },
-          { id: 2, name: "låt2", length: 239545 },
-          { id: 3, name: "låt3", length: 203445 },
-          { id: 4, name: "låt4", length: 309545 },
-          ]
+      playlist: null
     };
+  },
+  watch: {
+    '$route': 'getPlaylists'
+  },
+  mounted: function() {
+      this.getPlaylists()
+  },
+  methods: {
+    getPlaylists() {
+      this.spotify.getPlaylist(this.$route.params.id).then(data => {
+        this.playlist = data.body;
+      });
+    }
   }
 };
 </script>

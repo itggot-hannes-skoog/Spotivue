@@ -1,6 +1,6 @@
 <template>
-  <div class="playlists">
-    <div v-if="true" class="container">
+  <div v-if="playlists" class="playlists">
+    <vue-custom-scrollbar class="scroll-area" :settings="{suppressScrollY: true}">
       <router-link
         :to="`/playlist/${playlist.id}`"
         tag="div"
@@ -8,24 +8,29 @@
         :key="playlist.id"
         class="playlist"
       >
-        <img src="@/assets/hannes.png" alt="bild">
+        <img :src="playlist.images[0].url" alt="bild">
         <h2>{{playlist.name.toUpperCase()}}</h2>
       </router-link>
-    </div>
+    </vue-custom-scrollbar>
   </div>
 </template>
 
 <script>
+import vueCustomScrollbar from "vue-custom-scrollbar";
 export default {
+  components: {
+    vueCustomScrollbar
+  },
   data() {
     return {
-      playlists: [
-        { id: 1, name: "playlist" },
-        { id: 2, name: "playlist" },
-        { id: 3, name: "playlist" },
-        { id: 4, name: "playlist" }
-      ]
+      playlists: null
     };
+  },
+  beforeMount: function() {
+    if (this.$parent.$parent.loggedIn)
+      this.spotify.getUserPlaylists().then(data => {
+        this.playlists = data.body.items;
+      });
   }
 };
 </script>
