@@ -8,7 +8,7 @@
         :key="playlist.id"
         class="playlist"
       >
-        <img :src="playlist.images[0].url" alt="bild">
+        <img v-if="playlist.images.length > 0" :src="playlist.images[0].url" alt="bild">
         <h2>{{playlist.name.toUpperCase()}}</h2>
       </router-link>
     </vue-custom-scrollbar>
@@ -27,11 +27,13 @@ export default {
     };
   },
   beforeMount: function() {
-    if (this.$parent.$parent.loggedIn)
+    if (this.$parent.$parent.loggedIn) {
       this.spotify.getUserPlaylists().then(data => {
         this.playlists = data.body.items;
       });
-  }
+    }
+  },
+  mounted: function() {}
 };
 </script>
 

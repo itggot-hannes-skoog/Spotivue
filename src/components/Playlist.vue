@@ -1,5 +1,5 @@
 <template>
-  <div class="playlist">
+  <div v-if="playlist" class="playlist">
     <header>
       <h1>{{this.playlist.name}}</h1>
     </header>

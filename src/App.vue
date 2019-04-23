@@ -22,7 +22,7 @@ export default {
       user: null
     };
   },
-  beforeMount: function() {
+  created: function() {
     let access_token = this.$session.get("token")
     if (access_token) {
       this.loggedIn = true;

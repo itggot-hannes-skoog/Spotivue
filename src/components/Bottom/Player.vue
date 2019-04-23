@@ -1,8 +1,8 @@
 <template>
-  <section id="player">
+  <section v-if="currentPlayback" id="player">
     <div class="playback-slider">
       <vue-slider
-        v-model="currentPlayback.progress_ms"
+        :value="currentPlayback.progress_ms"
         :max="currentPlayback.item.duration_ms"
         :dot-size="15"
         :process-style="{'background': '#44BBA4'}"
@@ -13,10 +13,11 @@
       <font-awesome-icon @click="prevSong()" icon="step-backward" size="2x"/>
       <font-awesome-icon
         @click="playPause()"
-        :icon="playing ? 'pause-circle' : 'play-circle'"
+        :icon="currentPlayback.is_playing ? 'pause-circle' : 'play-circle'"
         size="3x"
       />
       <font-awesome-icon @click="nextSong()" icon="step-forward" size="2x"/>
+      <input type="checkbox" :checked="currentPlayback.shuffle_state" @click="shuffle()">
     </nav>
   </section>
 </template>
@@ -24,6 +25,7 @@
 <script>
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
+import { setTimeout } from "timers";
 export default {
   components: {
     VueSlider
@@ -31,35 +33,35 @@ export default {
   data() {
     return {
       position: 0,
-      playing: false,
       currentPlayback: null
     };
   },
   mounted: function() {
-    this.getCurrentPlayback()
+    this.getCurrentPlayback();
   },
   methods: {
-    playPause() {
-      if (this.playing) {
-        this.spotify.pause();
-      } else {
-        this.spotify.play();
-      }
-      this.playing = !this.playing;
-      this.getCurrentPlayback();
-    },
-    nextSong() {
-      this.spotify.skipToNext();
-      this.getCurrentPlayback();
-    },
-    prevSong() {
-      this.spotify.skipToPrevious();
-      this.getCurrentPlayback();
-    },
     getCurrentPlayback() {
       this.spotify.getMyCurrentPlaybackState().then(data => {
         this.currentPlayback = data.body;
       });
+    },
+    playPause() {
+      if (this.currentPlayback.is_playing) {
+        this.spotify.pause()
+      } else {
+        this.spotify.play()
+      }
+      this.getCurrentPlayback();
+    },
+    nextSong() {
+      this.spotify.skipToNext();
+    },
+    prevSong() {
+      this.spotify.skipToPrevious();
+    },
+    shuffle() {
+      this.spotify.setShuffle(!this.currentPlayback.shuffle_state);
+      this.getCurrentPlayback();
     }
   }
 };

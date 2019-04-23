@@ -39,6 +39,15 @@ body{
         @extend %center;
         justify-content: space-between;
 
+        .logo {
+            height: 90px;
+
+            img {
+                object-fit: cover;
+                height: 90px;
+            }
+        }
+
         .user {
             @extend %center;
             img {

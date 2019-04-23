@@ -1,5 +1,5 @@
 <template>
-  <div class="user">
+  <div v-if="user" class="user">
     <section class="info">
       <h1>{{this.user.display_name}}</h1>
       <img :src="this.user.images[0].url" alt="profile picture">
@@ -13,7 +13,7 @@
         class="playlist"
       >
         <h2>{{playlist.name.toUpperCase()}}</h2>
-        <img :src="playlist.images[0].url" alt="bild">
+        <img v-if="playlist.images.length > 0" :src="playlist.images[0].url" alt="bild">
       </router-link>
     </section>
   </div>
