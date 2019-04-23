@@ -18,10 +18,6 @@
       />
       <font-awesome-icon @click="nextSong()" icon="step-forward" size="2x"/>
     </nav>
-    <div class="playing">
-      <h3>{{this.currentPlayback.item.name}}</h3>
-      <h4 v-for="artist in currentPlayback.item.artists" :key="artist.id">{{artist.name}}  </h4>
-    </div>
   </section>
 </template>
 
@@ -40,7 +36,7 @@ export default {
     };
   },
   mounted: function() {
-    this.getCurrentPlayback();
+    this.getCurrentPlayback()
   },
   methods: {
     playPause() {
