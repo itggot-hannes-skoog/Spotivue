@@ -1,14 +1,19 @@
 <template>
   <div class="song">
-    <i class="play" @click="play(song.track.uri)">
+    <i class="play" @click="play(song.uri)">
       <font-awesome-icon icon="play-circle" size="2x"/>
     </i>
-    <h2>{{song.track.name}}</h2>
+    <h2>{{song.name}}</h2>
     <section class="artists">
-      <h4 v-for="artist in song.track.artists" :key="artist.id">{{artist.name}}</h4>
+      <router-link
+        :to="`/artist/${artist.id}`"
+        tag="h4"
+        v-for="artist in song.artists" :key="artist.id"
+      >{{artist.name}}
+      </router-link>
     </section>
-    <h4>{{song.track.album.name}}</h4>
-    <h3>{{moment.utc(song.track.duration_ms).format('mm:ss')}}</h3>
+    <router-link tag="h4" :to="`/album/${song.album.id}`" v-if="song.album">{{song.album.name}}</router-link>
+    <h3>{{moment.utc(song.duration_ms).format('mm:ss')}}</h3>
   </div>
 </template>
 

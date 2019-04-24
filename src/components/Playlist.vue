@@ -1,12 +1,12 @@
 <template>
-  <div v-if="playlist" class="playlist">
+  <main v-if="playlist" class="playlist">
     <header>
       <h1>{{this.playlist.name}}</h1>
     </header>
     <main class="songs">
-      <Song v-for="song in playlist.tracks.items" :key="song.track.id" :context="playlist.uri" :song="song"/>
+      <Song v-for="song in playlist.tracks.items" :key="song.track.id" :context="playlist.uri" :song="song.track"/>
     </main>
-  </div>
+  </main>
 </template>
 
 <script>

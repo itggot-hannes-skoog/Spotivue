@@ -4,18 +4,18 @@
       <img src="@/assets/hannes.png" alt="logo">
     </router-link>
     <Playlists/>
-    <Login v-if="!$parent.isLoggedin"/>
+    <SearchBar/>
     <UserInfo/>
   </section>
 </template>
 
 <script>
-import Login from "./Login";
 import Playlists from "./Playlists";
 import UserInfo from "./UserInfo";
+import SearchBar from "./SearchBar";
 
 export default {
-  components: { Login, UserInfo, Playlists }
+  components: { SearchBar, UserInfo, Playlists }
 };
 </script>
 
