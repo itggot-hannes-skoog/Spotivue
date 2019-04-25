@@ -1,11 +1,12 @@
 <template>
   <div v-if="user" class="user">
-    <section class="info">
-      <h1>{{this.user.display_name}}</h1>
-      <img :src="this.user.images[0].url" alt="profile picture">
-    </section>
+    <InfoHeader
+      :name="user.display_name"
+      :img="user.images[0].url"
+      :followers="user.followers.total"
+    />
     <section class="playlists">
-        <router-link
+      <router-link
         :to="`/playlist/${playlist.id}`"
         tag="div"
         v-for="playlist in playlists"
@@ -20,11 +21,15 @@
 </template>
 
 <script>
+import InfoHeader from "@/components/InfoHeader";
 export default {
+  components: {
+    InfoHeader
+  },
   data() {
     return {
       user: null,
-      playlists : null
+      playlists: null
     };
   },
   watch: {
@@ -32,7 +37,7 @@ export default {
   },
   mounted: function() {
     this.getUser();
-    this.getPlaylists()
+    this.getPlaylists();
   },
   methods: {
     getUser() {

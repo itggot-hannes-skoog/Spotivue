@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import Song from "./Song"
+import Song from "@/components/Song"
 export default {
     components: {Song},
   data() {

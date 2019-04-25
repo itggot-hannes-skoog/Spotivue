@@ -1,7 +1,7 @@
 <template>
   <section id="top-nav">
     <router-link to="/" tag="div" class="logo">
-      <img src="@/assets/hannes.png" alt="logo">
+      <img src="@/assets/logo.png" alt="logo">
     </router-link>
     <Playlists/>
     <SearchBar/>

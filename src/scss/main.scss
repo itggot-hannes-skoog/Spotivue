@@ -41,10 +41,12 @@ body{
 
         .logo {
             height: 90px;
+            padding: 10px;
+            box-sizing: border-box;
 
             img {
                 object-fit: cover;
-                height: 90px;
+                height: 70px;
             }
         }
 
@@ -122,6 +124,29 @@ body{
             height: 100%;
             overflow-y: auto;
         }
+
+        .info-header {
+            @extend %center;
+            height: 200px;
+
+            img {
+                height: 150px;
+                width: 150px;
+                object-fit: cover;
+                border-radius: 100px;
+            }
+
+            .info {
+                margin-left: 1rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .name {
+                    font-size: 3.4rem;
+                }
+            }
+        }
         >.user {
 
             .playlists {
@@ -173,22 +198,55 @@ body{
 
         .song {
             display: grid;
-            background: $sky;
-            height: 50px;
+            background: $dark;
+            height: 40px;
             width: 100%;
-            margin: 1px 0;
+            margin: 2px 0;
             grid-template-columns: .3fr 2fr 1fr 1fr .3fr;
 
-            .artists {
+            >* {
                 display: flex;
+                align-items: center;
             }
+
+            .play {
+                margin-left: 6px;
+                color: $green;
+            }
+
+            .artists {
+                overflow: hidden;
+                width: 100%;
+                position: relative;
+
+                .inner {
+                    position: absolute;
+                    display: flex;
+                    flex-wrap: no-wrap;
+                    overflow: hidden;
+                    animation: marquee 5s linear infinite;
+                    animation-play-state: paused;
+
+                    &:hover {
+                        animation-play-state: running; 
+                    }
+                }
+            }
+            @keyframes marquee {
+                from {
+                  transform: translateX(0%);
+                }
+                to {
+                  transform: translateX(-100%);
+                }
+              }
         }
 
-        >.songs {
+        .songs {
             display: flex;
             width: 100%;
             flex-direction: column;
-            padding: 0 2rem;
+            padding: 0 5rem;
             box-sizing: border-box;
         }
 
@@ -248,9 +306,36 @@ body{
         #player {
             flex-direction: column;
             @extend %center;
-            color: $sky;
+            color: $green;
             width: 100%;
             height: 90px;
+
+            .player-controls {
+                .disabled {
+                    color: rgb(97, 111, 122)
+                }
+                .repeat {
+                    position: relative;
+
+                    .off {
+                        color: rgb(97, 111, 122)
+                    }
+                    span {
+                        pointer-events: none;
+                        font-style: normal;
+                        font-family: $open;
+                        position: absolute;
+                        width: 100%;
+                        color: white;
+                        right: 2px;
+                        left: 0;
+                        top: 0;
+                        font-size: .8rem;
+                        font-weight: 600;
+                        text-align: center;
+                    }
+                }
+            }
 
             .playback-slider {
                 width: 90%;

@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './components/Home.vue';
+import Home from '@/views/Home.vue';
 import Callback from './components/Callback'
-import Playlist from './components/Playlist'
-import User from './components/User'
-import Search from './components/Search'
-import Album from './components/Album'
-import Artist from './components/Artist'
+import Playlist from '@/views/Playlist'
+import User from '@/views/User'
+import Search from '@/views/Search'
+import Album from '@/views/Album'
+import Artist from '@/views/Artist'
 
 Vue.use(Router)
 

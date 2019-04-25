@@ -1,9 +1,11 @@
 <template>
   <main v-if="album" class="album">
-    <header>
-      <h1>{{album.name}}</h1>
-            <img v-if="album.images.length > 0" :src="album.images[0].url" alt="picture">
-    </header>
+    <InfoHeader
+      :name="album.name"
+      :img="album.images[0].url"
+      :artists="album.artists"
+      :tracks="album.tracks.total"
+    />
     <main class="songs">
       <Song v-for="song in album.tracks.items" :key="song.id" :context="album.uri" :song="song"/>
     </main>
@@ -11,10 +13,12 @@
 </template>
 
 <script>
-import Song from "./Song.vue";
+import Song from "@/components/Song";
+import InfoHeader from "@/components/InfoHeader";
 export default {
   components: {
-    Song
+    Song,
+    InfoHeader
   },
   data() {
     return {

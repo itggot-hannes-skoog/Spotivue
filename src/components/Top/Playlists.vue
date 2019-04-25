@@ -32,8 +32,7 @@ export default {
         this.playlists = data.body.items;
       });
     }
-  },
-  mounted: function() {}
+  }
 };
 </script>
 

@@ -5,12 +5,17 @@
     </i>
     <h2>{{song.name}}</h2>
     <section class="artists">
-      <router-link
-        :to="`/artist/${artist.id}`"
-        tag="h4"
-        v-for="artist in song.artists" :key="artist.id"
-      >{{artist.name}}
-      </router-link>
+      <div class="inner">
+        <router-link
+          :to="`/artist/${artist.id}`"
+          tag="h4"
+          v-for="(artist, i) in song.artists"
+          :key="artist.id"
+        >
+          {{artist.name}}
+          <template v-if="i !== (song.artists.length-1)">•&nbsp;</template>
+        </router-link>
+      </div>
     </section>
     <router-link tag="h4" :to="`/album/${song.album.id}`" v-if="song.album">{{song.album.name}}</router-link>
     <h3>{{moment.utc(song.duration_ms).format('mm:ss')}}</h3>
