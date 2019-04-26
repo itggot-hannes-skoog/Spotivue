@@ -1,5 +1,5 @@
 <template>
-  <div v-if="currentPlayback" class="playing">
+  <div class="playing">
     <router-link :to="`/${redirect.type}/${redirect.id}`">
       <img
         v-if="currentPlayback.item.album.images.length > 0"
@@ -8,7 +8,7 @@
       >
     </router-link>
     <div class="info">
-      <h3>{{this.currentPlayback.item.name}}</h3>
+      <h3>{{currentPlayback.item.name}}</h3>
       <router-link
         :to="`/artist/${artist.id}`"
         tag="h4"
@@ -21,22 +21,16 @@
 
 <script>
 export default {
+  props: ["currentPlayback"],
   data() {
     return {
-      currentPlayback: null,
       redirect: null
     };
   },
-  mounted: function() {
-    this.getCurrentPlayback();
+  beforeMount: function() {
+    this.getContext();
   },
   methods: {
-    getCurrentPlayback() {
-      this.spotify.getMyCurrentPlaybackState().then(data => {
-        this.currentPlayback = data.body;
-        this.getContext();
-      });
-    },
     getContext() {
       let uri = this.currentPlayback.context.uri;
       uri = uri.split(":");
@@ -57,11 +51,10 @@ export default {
           redirect.id = uri[2];
           redirect.type = uri[1];
           break;
-        default: 
-          redirect.id = this.currentPlayback.item.album.id
-          redirect.type = "album"
+        default:
+          redirect.id = this.currentPlayback.item.album.id;
+          redirect.type = "album";
           break;
-
       }
       this.redirect = redirect;
     }

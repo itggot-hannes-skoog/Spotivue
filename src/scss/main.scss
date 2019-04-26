@@ -113,6 +113,17 @@ body{
 
             }
         }
+
+        .search-bar {
+            input {
+                background: $light;
+                padding: 0.6rem;
+                box-sizing: border-box;
+                border: none;
+                border-radius: 8px;
+                outline: 0;
+            }
+        }
     }
 
     >main {
@@ -301,7 +312,7 @@ body{
         bottom: 0;
         position: fixed;
         display: grid;
-        grid-template-columns: 0.5fr 1fr 0.1fr;
+        grid-template-columns: 0.5fr 1fr 0.1fr 0.1fr;
 
         #player-controls {
             flex-direction: column;
@@ -348,6 +359,26 @@ body{
             img {
                 height: 90px;
                 object-fit: cover;
+            }
+        }
+
+        .devices {
+            position: relative;
+
+            nav {
+                position: absolute;
+                background: $dark;
+                height: 100%;
+                width: 150px;
+                padding: 1rem;
+                box-sizing: border-box;
+                bottom: 100px;
+
+                .device {
+                    margin: .5rem;
+                    background: $sky;
+                    cursor: pointer;
+                }
             }
         }
     }

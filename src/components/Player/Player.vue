@@ -1,36 +1,36 @@
 <template>
   <section id="player">
-    <Playing/>
-    <PlayerControls/>
-    <div class="devices">
-      <font-awesome-icon @click="getDevices()" icon="mobile-alt" size="2x"/>
-      <nav>
-          <div class="device" v-for="device in devices" :key="device.id">{{device.name}} </div>
-      </nav>
-    </div>
+    <Playing v-if="currentPlayback" :currentPlayback="currentPlayback"/>
+    <PlayerControls v-if="currentPlayback" :currentPlayback="currentPlayback"/>
+    <DevicePicker v-if="currentPlayback"/>
+    <Volume v-if="currentPlayback" :currentPlayback="currentPlayback"/>
   </section>
 </template>
 
 <script>
 import PlayerControls from "./PlayerControls";
 import Playing from "./Playing";
+import DevicePicker from "./DevicePicker";
+import Volume from "./Volume";
 export default {
   components: {
     PlayerControls,
-    Playing
+    Playing,
+    DevicePicker,
+    Volume
   },
   data() {
     return {
-      devices: null
+      currentPlayback: null
     };
   },
   mounted: function() {
-      this.getDevices;
+    this.getCurrentPlayback();
   },
   methods: {
-    getDevices() {
-      this.spotify.getMyDevices().then(data => {
-        this.devices = data.body.devices;
+    getCurrentPlayback() {
+      this.spotify.getMyCurrentPlaybackState().then(data => {
+        this.currentPlayback = data.body;
       });
     }
   }

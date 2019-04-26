@@ -37,6 +37,7 @@ import "vue-slider-component/theme/antd.css";
 import { setTimeout } from "timers";
 import moment from "moment";
 export default {
+  props: ["currentPlayback"],
   components: {
     VueSlider
   },
@@ -44,15 +45,11 @@ export default {
     return {
       progress: 0,
       playing: null,
-      currentPlayback: null,
       progressInterval: null,
       shuffle_state: null,
       repeat_state: null,
       time: v => moment.utc(v).format("mm:ss")
     };
-  },
-  mounted: function() {
-    this.getCurrentPlayback();
   },
   watch: {
     currentPlayback() {
@@ -69,11 +66,6 @@ export default {
     this.updateProgress();
   },
   methods: {
-    getCurrentPlayback() {
-      this.spotify.getMyCurrentPlaybackState().then(data => {
-        this.currentPlayback = data.body;
-      });
-    },
     updateProgress() {
       clearInterval(this.progressInterval);
       if (this.playing) {
@@ -81,7 +73,7 @@ export default {
           if (this.progress + 1000 <= this.currentPlayback.item.duration_ms) {
             this.progress += 1000;
           } else {
-            this.getCurrentPlayback();
+            this.$parent.getCurrentPlayback();
           }
         }, 1000);
       }
@@ -103,12 +95,12 @@ export default {
     nextSong() {
       this.spotify.skipToNext();
       this.progress = 0
-      this.getCurrentPlayback();
+      this.$parent.getCurrentPlayback();
     },
     prevSong() {
       this.spotify.skipToPrevious();
       this.progress = 0
-      this.getCurrentPlayback();
+      this.$parent.getCurrentPlayback();
     },
     shuffle() {
       this.shuffle_state = !this.shuffle_state;
