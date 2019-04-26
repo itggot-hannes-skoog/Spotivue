@@ -1,5 +1,5 @@
 <template>
-  <section id="top-nav">
+  <section id="nav">
     <router-link to="/" tag="div" class="logo">
       <img src="@/assets/logo.png" alt="logo">
     </router-link>

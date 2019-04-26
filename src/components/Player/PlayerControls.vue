@@ -1,5 +1,5 @@
 <template>
-  <section v-if="currentPlayback" id="player">
+  <section v-if="currentPlayback" id="player-controls">
     <div class="playback-slider">
       <vue-slider
         :value="progress"
@@ -7,8 +7,9 @@
         :dot-size="15"
         :process-style="{'background': '#44BBA4'}"
         :bg-style="{'background': '#3F88C5'}"
-        :lazy="true"
         :tooltip-formatter="time"
+        v-on:drag-end="onDragEnd"
+        ref="slider"
       />
     </div>
     <nav class="player-controls">
@@ -80,11 +81,17 @@ export default {
           if (this.progress + 1000 <= this.currentPlayback.item.duration_ms) {
             this.progress += 1000;
           } else {
-            this.getCurrentPlayback()
+            this.getCurrentPlayback();
           }
         }, 1000);
       }
     },
+
+    onDragEnd() {
+      this.spotify.seek(this.$refs.slider.getValue());
+      this.progress = this.$refs.slider.getValue();
+    },
+
     playSong() {
       this.spotify.play();
       this.playing = true;
@@ -95,9 +102,13 @@ export default {
     },
     nextSong() {
       this.spotify.skipToNext();
+      this.progress = 0
+      this.getCurrentPlayback();
     },
     prevSong() {
       this.spotify.skipToPrevious();
+      this.progress = 0
+      this.getCurrentPlayback();
     },
     shuffle() {
       this.shuffle_state = !this.shuffle_state;

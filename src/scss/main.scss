@@ -30,7 +30,7 @@ body{
     font-family: $open;
     color: white;
 
-    #top-nav {
+    #nav {
         width: 100%;
         background: $dark;
         height: 90px;
@@ -239,7 +239,7 @@ body{
                 to {
                   transform: translateX(-100%);
                 }
-              }
+            }
         }
 
         .songs {
@@ -294,7 +294,7 @@ body{
 
     }
 
-    #bottom-nav {
+    #player {
         width: 100%;
         background: $dark;
         height: 90px;
@@ -303,7 +303,7 @@ body{
         display: grid;
         grid-template-columns: 0.5fr 1fr 0.1fr;
 
-        #player {
+        #player-controls {
             flex-direction: column;
             @extend %center;
             color: $green;

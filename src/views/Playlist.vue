@@ -3,7 +3,7 @@
     <InfoHeader
       :name="playlist.name"
       :img="playlist.images[0].url"
-      :owner="playlist.owner.display_name"
+      :owner="playlist.owner"
       :followers="playlist.followers.total"
       :tracks="playlist.tracks.total"
     />

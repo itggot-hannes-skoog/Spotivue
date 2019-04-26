@@ -3,7 +3,7 @@
     <img v-if="img" :src="img" alt="image">
     <section class="info">
       <h1 class="name" v-if="name">{{name}}</h1>
-      <h3 class="owner">{{owner}}</h3>
+      <router-link v-if="owner" :to="`/user/${owner.id}`" tag="h3" class="owner">{{owner.display_name}}</router-link>
       <section v-if="artists" class="artists">
         <router-link
           :to="`/artist/${artist.id}`"

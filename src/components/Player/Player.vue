@@ -1,7 +1,7 @@
 <template>
-  <section id="bottom-nav">
+  <section id="player">
     <Playing/>
-    <Player/>
+    <PlayerControls/>
     <div class="devices">
       <font-awesome-icon @click="getDevices()" icon="mobile-alt" size="2x"/>
       <nav>
@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import Player from "./Player";
+import PlayerControls from "./PlayerControls";
 import Playing from "./Playing";
 export default {
   components: {
-    Player,
+    PlayerControls,
     Playing
   },
   data() {

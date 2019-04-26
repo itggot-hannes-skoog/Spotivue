@@ -1,20 +1,20 @@
 <template>
   <div id="app">
-    <TopNav/>
+    <Nav/>
     <main>
       <router-view></router-view>
     </main>
-    <BottomNav/>
+    <Player/>
   </div>
 </template>
 
 <script>
-import TopNav from "@/components/Top/TopNav";
-import BottomNav from "@/components/Bottom/BottomNav";
+import Nav from "@/components/Nav/Nav";
+import Player from "@/components/Player/Player";
 
 export default {
   name: "spotivue",
-  components: { TopNav, BottomNav },
+  components: { Nav, Player },
   data() {
     return {
       loggedIn: false,
