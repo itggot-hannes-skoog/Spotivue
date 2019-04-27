@@ -13,20 +13,20 @@
       />
     </div>
     <nav class="player-controls">
-      <i class="repeat">
-        <font-awesome-icon :class="repeat_state" @click="repeat()" icon="sync-alt" size="lg"/>
-        <span v-if="repeat_state == 'track'">1</span>
-      </i>
-      <font-awesome-icon @click="prevSong()" icon="step-backward" size="2x"/>
-      <font-awesome-icon v-if="!playing" @click="playSong()" icon="play-circle" size="3x"/>
-      <font-awesome-icon v-if="playing" @click="pauseSong()" icon="pause-circle" size="3x"/>
-      <font-awesome-icon @click="nextSong()" icon="step-forward" size="2x"/>
       <font-awesome-icon
         :class="this.shuffle_state ? 'active' : 'disabled'"
         @click="shuffle()"
         icon="random"
         size="lg"
       />
+      <font-awesome-icon @click="prevSong()" icon="step-backward" size="2x"/>
+      <font-awesome-icon v-if="!playing" @click="playSong()" icon="play-circle" size="3x"/>
+      <font-awesome-icon v-if="playing" @click="pauseSong()" icon="pause-circle" size="3x"/>
+      <font-awesome-icon @click="nextSong()" icon="step-forward" size="2x"/>
+      <i class="repeat">
+        <font-awesome-icon :class="repeat_state" @click="repeat()" icon="sync-alt" size="lg"/>
+        <span v-if="repeat_state == 'track'">1</span>
+      </i>
     </nav>
   </section>
 </template>
@@ -50,6 +50,12 @@ export default {
       repeat_state: null,
       time: v => moment.utc(v).format("mm:ss")
     };
+  },
+  mounted: function() {
+    this.playing = this.currentPlayback.is_playing;
+    this.progress = this.currentPlayback.progress_ms;
+    this.shuffle_state = this.currentPlayback.shuffle_state;
+    this.repeat_state = this.currentPlayback.repeat_state;
   },
   watch: {
     currentPlayback() {
@@ -94,12 +100,12 @@ export default {
     },
     nextSong() {
       this.spotify.skipToNext();
-      this.progress = 0
+      this.progress = 0;
       this.$parent.getCurrentPlayback();
     },
     prevSong() {
       this.spotify.skipToPrevious();
-      this.progress = 0
+      this.progress = 0;
       this.$parent.getCurrentPlayback();
     },
     shuffle() {

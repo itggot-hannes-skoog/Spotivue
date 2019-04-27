@@ -35,6 +35,7 @@ export default {
   methods: {
     play(uri) {
       this.spotify.play({ context_uri: this.context, offset: { uri: uri } });
+      this.$root.$emit('songPlay');
     }
   }
 };

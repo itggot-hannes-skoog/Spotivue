@@ -11,6 +11,7 @@
 <script>
 import Nav from "@/components/Nav/Nav";
 import Player from "@/components/Player/Player";
+import { setTimeout } from "timers";
 
 export default {
   name: "spotivue",
@@ -23,18 +24,24 @@ export default {
     };
   },
   created: function() {
-    let access_token = this.$session.get("token");
-    if (access_token) {
+    let tokens = this.$session.get("tokens");
+    if (tokens.access_token) {
       this.loggedIn = true;
-      this.refresh_token = access_token;
-      this.spotify.setAccessToken(access_token);
+      this.refresh_token = tokens.refresh_token;
+      this.spotify.setAccessToken(tokens.access_token);
       this.spotify.getMe().then(data => {
         this.user = data.body;
       });
-      this.initSDK(access_token)
+      this.initSDK(tokens.access_token);
+      setTimeout(() => {
+        this.refreshToken()
+      }, tokens.expires_in*10)
     }
   },
   methods: {
+    refreshToken() {
+      console.log("jdisji")
+    },
     initSDK(token) {
       window.onSpotifyWebPlaybackSDKReady = () => {
         const player = new Spotify.Player({

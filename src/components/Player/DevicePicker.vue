@@ -1,7 +1,7 @@
 <template>
   <div class="devices">
     <font-awesome-icon @click="getDevices()" icon="mobile-alt" size="2x"/>
-    <nav>
+    <nav v-if="showDevices">
       <h2>Devices</h2>
       <div
         @click="selectDevice(device.id)"
@@ -17,17 +17,22 @@
 export default {
   data() {
     return {
-      devices: null
+      devices: null,
+      showDevices: false
     };
   },
   mounted: function() {
-    this.getDevices;
   },
   methods: {
     getDevices() {
-      this.spotify.getMyDevices().then(data => {
-        this.devices = data.body.devices;
-      });
+      if (this.showDevices) {
+        this.showDevices = false;
+      } else {
+        this.spotify.getMyDevices().then(data => {
+          this.devices = data.body.devices;
+        });
+        this.showDevices = true;
+      }
     },
     selectDevice(id) {
       let ids = [];

@@ -266,6 +266,46 @@ body{
                 display: flex;
                 flex-wrap: nowrap;
                 
+                >div {
+                    position: relative;
+                    height: 120px;
+                    width: 120px;
+                    border-radius: 1000px;
+                    margin: 10px;
+                    background: rgb(0, 0, 0);
+                    @extend %center;
+                    cursor: pointer;
+                    flex: 0 0 auto;
+
+                    img {
+                        object-fit: cover;
+                        height: 120px;
+                        width: 120px;
+                        position: absolute;
+                        border-radius: 1000px;
+                        opacity: 0.7;
+                        transition: all 0.2s ease-in-out 0s;
+
+                        &:hover {
+                            opacity: 0.1;
+                        }
+                    }
+
+                    h2 {
+                        color: white;
+                        position: absolute;
+                        font-family: $opencon;
+                        text-align: center;
+                        z-index: 10;
+                        pointer-events: none;
+                    }
+                }
+            }
+        }
+        main>section {
+            display: flex;
+            flex-wrap: wrap;
+
             >div {
                 position: relative;
                 height: 120px;
@@ -300,7 +340,6 @@ body{
                     pointer-events: none;
                 }
             }
-        }
         }
 
     }

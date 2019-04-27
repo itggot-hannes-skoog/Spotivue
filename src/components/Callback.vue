@@ -1,20 +1,24 @@
 <template>
-  <main id="callback">
-    <h1>Callback</h1>
-  </main>
+  <main id="callback"></main>
 </template>
 
 <script>
 export default {
   name: "Callback",
-  beforeMount: function() {
-    if (this.$route.query.access_token) {
+  created: function() {
+    const {
+      access_token,
+      refresh_token,
+      expires_in,
+      error
+    } = this.$route.query;
+    if (error) {
+      console.error(error);
+    } else if (access_token && refresh_token && expires_in) {
       this.$session.start();
-      this.$session.set("token", this.$route.query.access_token);
+      this.$session.set("tokens", {access_token, refresh_token, expires_in});
     }
-  },
-  mounted: function() {
-    window.location.replace("http://localhost:8080");
+    this.$router.push("/");
   }
 };
 </script>

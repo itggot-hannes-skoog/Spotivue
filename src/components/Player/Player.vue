@@ -12,6 +12,7 @@ import PlayerControls from "./PlayerControls";
 import Playing from "./Playing";
 import DevicePicker from "./DevicePicker";
 import Volume from "./Volume";
+import { setTimeout } from "timers";
 export default {
   components: {
     PlayerControls,
@@ -26,6 +27,9 @@ export default {
   },
   mounted: function() {
     this.getCurrentPlayback();
+    this.$root.$on("songPlay", () => {
+      setTimeout(this.getCurrentPlayback(), 2000);
+    });
   },
   methods: {
     getCurrentPlayback() {
