@@ -17,7 +17,7 @@
         </router-link>
       </div>
     </section>
-    <router-link tag="h4" :to="`/album/${song.album.id}`" v-if="song.album">{{song.album.name}}</router-link>
+    <router-link class="album" tag="h4" :to="`/album/${song.album.id}`" v-if="song.album">{{song.album.name}}</router-link>
     <h3>{{moment.utc(song.duration_ms).format('mm:ss')}}</h3>
   </div>
 </template>

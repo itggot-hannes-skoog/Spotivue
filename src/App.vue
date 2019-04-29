@@ -33,15 +33,9 @@ export default {
         this.user = data.body;
       });
       this.initSDK(tokens.access_token);
-      setTimeout(() => {
-        this.refreshToken()
-      }, tokens.expires_in*10)
     }
   },
   methods: {
-    refreshToken() {
-      console.log("jdisji")
-    },
     initSDK(token) {
       window.onSpotifyWebPlaybackSDKReady = () => {
         const player = new Spotify.Player({

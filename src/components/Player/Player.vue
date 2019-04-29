@@ -25,10 +25,12 @@ export default {
       currentPlayback: null
     };
   },
-  mounted: function() {
+  mounted() {
     this.getCurrentPlayback();
-    this.$root.$on("songPlay", () => {
-      setTimeout(this.getCurrentPlayback(), 2000);
+    this.$root.$on("songPlay", async () => {
+      setTimeout(() => {
+        this.getCurrentPlayback();
+      }, 1000);
     });
   },
   methods: {

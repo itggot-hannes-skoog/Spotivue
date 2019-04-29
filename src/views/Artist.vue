@@ -1,14 +1,12 @@
 <template>
   <main v-if="artist" class="artist">
-    <InfoHeader
-      :name="artist.name"
-      :img="artist.images[0].url"
-    />
+    <InfoHeader :name="artist.name" :img="artist.images[0].url"/>
     <main class="songs">
       <Song v-for="song in topTracks" :key="song.id" :song="song"/>
     </main>
+    <h1>Albums</h1>
+    <hr>
     <section class="albums">
-      <h1>Albums</h1>
       <router-link
         :to="`/album/${album.id}`"
         tag="div"
@@ -20,8 +18,9 @@
         <img v-if="album.images.length > 0" :src="album.images[0].url" alt="bild">
       </router-link>
     </section>
+    <h1>Singles</h1>
+    <hr>
     <section class="singles">
-      <h1>Singles</h1>
       <router-link
         :to="`/album/${single.id}`"
         tag="div"
@@ -53,14 +52,14 @@ export default {
     };
   },
   watch: {
-    '$route': 'getArtist',
+    $route: "getArtist",
     artist: function() {
-      this.getTopTracks()
-      this.getAlbums()
+      this.getTopTracks();
+      this.getAlbums();
     }
   },
   mounted: function() {
-      this.getArtist()
+    this.getArtist();
   },
   methods: {
     getArtist() {
@@ -69,24 +68,24 @@ export default {
       });
     },
     getTopTracks() {
-      this.spotify.getArtistTopTracks(this.artist.id, 'SV').then(data => {
-        this.topTracks = data.body.tracks
-      })
+      this.spotify.getArtistTopTracks(this.artist.id, "SV").then(data => {
+        this.topTracks = data.body.tracks;
+      });
     },
     getAlbums() {
-      let albums = []
-      let singles = []
+      let albums = [];
+      let singles = [];
       this.spotify.getArtistAlbums(this.artist.id).then(data => {
         data.body.items.forEach(item => {
-          if (item.album_group == 'album') {
-            albums.push(item)
+          if (item.album_group == "album") {
+            albums.push(item);
           } else {
-            singles.push(item)
+            singles.push(item);
           }
-        })
-        this.albums = albums
-        this.singles = singles
-      })
+        });
+        this.albums = albums;
+        this.singles = singles;
+      });
     }
   }
 };
