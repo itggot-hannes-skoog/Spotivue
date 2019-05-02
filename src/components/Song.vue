@@ -5,19 +5,22 @@
     </i>
     <h2>{{song.name}}</h2>
     <section class="artists">
-      <div class="inner">
-        <router-link
-          :to="`/artist/${artist.id}`"
-          tag="h4"
-          v-for="(artist, i) in song.artists"
-          :key="artist.id"
-        >
-          {{artist.name}}
-          <template v-if="i !== (song.artists.length-1)">•&nbsp;</template>
-        </router-link>
-      </div>
+      <router-link
+        :to="`/artist/${artist.id}`"
+        tag="h4"
+        v-for="(artist, i) in song.artists"
+        :key="artist.id"
+      >
+        {{artist.name}}
+        <template v-if="i !== (song.artists.length-1)">•&nbsp;</template>
+      </router-link>
     </section>
-    <router-link class="album" tag="h4" :to="`/album/${song.album.id}`" v-if="song.album">{{song.album.name}}</router-link>
+    <router-link
+      class="album"
+      tag="h4"
+      :to="`/album/${song.album.id}`"
+      v-if="song.album"
+    >{{song.album.name}}</router-link>
     <h3>{{moment.utc(song.duration_ms).format('mm:ss')}}</h3>
   </div>
 </template>
@@ -35,7 +38,7 @@ export default {
   methods: {
     play(uri) {
       this.spotify.play({ context_uri: this.context, offset: { uri: uri } });
-      this.$root.$emit('songPlay');
+      this.$root.$emit("songPlay");
     }
   }
 };

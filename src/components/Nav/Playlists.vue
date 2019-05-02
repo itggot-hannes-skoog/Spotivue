@@ -7,6 +7,7 @@
         v-for="playlist in playlists"
         :key="playlist.id"
         class="playlist"
+        @click.native="$parent.navDown = false"
       >
         <img v-if="playlist.images.length > 0" :src="playlist.images[0].url" alt="bild">
         <h2>{{playlist.name.toUpperCase()}}</h2>

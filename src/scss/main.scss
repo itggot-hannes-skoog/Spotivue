@@ -224,6 +224,10 @@ body{
             padding: 1rem;
             box-sizing: border-box;
         }
+        
+        .album .song {
+            grid-template-columns: .3fr 2fr 1fr 55px;
+        }
 
         .song {
             display: grid;
@@ -231,7 +235,8 @@ body{
             height: 40px;
             width: 100%;
             margin: 2px 0;
-            grid-template-columns: .3fr 2fr 1fr 1fr .3fr;
+            grid-template-columns: .3fr 2fr 1fr 1fr 55px;
+
 
             >* {
                 display: flex;
@@ -249,17 +254,13 @@ body{
                 overflow: hidden;
                 width: 100%;
                 position: relative;
+                z-index: 0;
 
                 .inner {
                     position: absolute;
                     display: flex;
                     flex-wrap: no-wrap;
                     white-space: nowrap;
-                    transform: translateX(0);
-                    transition: 2s;
-                    &:hover {
-                        transform: translateX(-100%);
-                    }
                 }
             }
         }
@@ -427,6 +428,11 @@ body{
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+
+                .artists {
+                    flex-direction: row;
+                    display: flex;
+                }
             }
 
             img {
@@ -510,42 +516,22 @@ body{
     
             .user {
                 @include center;
-                img {
-                    height: 40px;
-                    border-radius: 1000px;
-                }
             }
         }
         >main {
-            padding: 90px 0;
-            height: calc(100% - 180px);
-            background: $darker;
-    
-            >main {
-                height: 100%;
-                overflow-y: auto;
-            }
+            padding: 60px 0;
+            height: calc(100% - 120px);
     
             .info-header {
-                @include center;
-                height: 200px;
+                height: 150px;
     
                 img {
-                    height: 150px;
-                    width: 150px;
-                    object-fit: cover;
-                    border-radius: 100px;
+                    height: 100px;
+                    width: 100px;
                 }
     
                 .info {
-                    margin-left: 1rem;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-    
-                    .name {
-                        font-size: 3.4rem;
-                    }
+                    font-size: 80%;
                 }
             }
             >.user {
@@ -553,73 +539,34 @@ body{
                 .playlists {
                     display: flex;
                     flex-wrap: wrap;
-    
-                    .playlist {
-                        position: relative;
-                        height: 120px;
-                        width: 120px;
-                        border-radius: 1000px;
-                        margin: 10px;
-                        background: rgb(0, 0, 0);
-                        @include center;
-                        cursor: pointer;
-                        flex: 0 0 auto;
-    
-                        img {
-                            object-fit: cover;
-                            height: 120px;
-                            width: 120px;
-                            position: absolute;
-                            border-radius: 1000px;
-                            opacity: 0.7;
-                            transition: all 0.2s ease-in-out 0s;
-    
-                            &:hover {
-                                opacity: 0.1;
-                            }
-                        }
-    
-                        h2 {
-                            color: white;
-                            position: absolute;
-                            font-family: $opencon;
-                            text-align: center;
-                            z-index: 10;
-                            pointer-events: none;
-                        }
-                    }
+                    @include center;
                 }
             
             }
             >.playlist {
-                height: 100%;
-                overflow-y: auto;
                 padding: 1rem;
-                box-sizing: border-box;
             }
     
             .song {
-                display: grid;
-                background: $dark;
-                height: 40px;
-                width: 100%;
-                margin: 2px 0;
-                grid-template-columns: 2fr 1fr;
-                font-size: 80%;
-
-                h2 {
+                height: 50px;
+                grid-template-columns: 1fr;
+                grid-template-rows: 2fr 1.5fr;
+                font-size: 75%;
+                overflow: hidden;
+                position: relative;
+    
+                >* {
                     margin-left: 10px;
                 }
     
-                >* {
-                    display: flex;
-                    align-items: center;
-                    white-space: nowrap;
-                    overflow: hidden;
-                }
-    
                 .play {
-                    display: none;
+                    display: block;
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                    svg {
+                        display: none;
+                    }
                 }
 
                 .album {
@@ -631,30 +578,12 @@ body{
                 }
     
                 .artists {
-                    overflow: hidden;
-                    width: 100%;
-                    position: relative;
-    
-                    .inner {
-                        position: absolute;
-                        display: flex;
-                        flex-wrap: no-wrap;
-                        white-space: nowrap;
-                        transform: translateX(0);
-                        transition: 2s;
-                        &:hover {
-                            transform: translateX(-100%);
-                        }
-                    }
+                    pointer-events: none;
                 }
             }
     
             .songs {
-                display: flex;
-                width: 100%;
-                flex-direction: column;
                 padding: 0 .5rem;
-                box-sizing: border-box;
                 
             }
     
@@ -756,6 +685,99 @@ body{
                 }
             }
     
+        }
+
+        
+        #player {
+            height: 60px;
+            display: flex;
+            transition: all .3s ease-in-out;
+
+            &.active {
+                height: 100vh;
+                display: grid;
+                grid-template-areas: "devices" "playing""controls";
+                grid-template-rows: 1fr 1fr 1fr;
+                grid-template-columns: 1fr;
+
+                #player-controls {
+                    height: 60px;
+                    display: flex;
+                    grid-area: controls;
+
+                    .player-controls {
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                        width: 70%;
+                    }
+    
+                    .playback-slider {
+                        width: 90%;
+                    }
+                }
+                .playing {
+                    grid-area: playing;
+                    @include center;
+                    flex-direction: column;
+    
+                    img {
+                        display: block;
+                        width: 90vw;
+                        height: 90vw
+                    }
+                }
+                
+                .devices {
+                    display: block;
+                    grid-area: devices;
+                }
+
+            }
+
+            #player-controls {display: none}
+            
+            .playing {
+                grid-area: playing;
+                width: 100%;
+
+                .info {
+                    width: 100%;
+                    @include center;
+                    flex-direction: column;
+                }
+
+                img {
+                    display: none;
+                }
+            }
+
+            .devices {
+                display: none;
+                grid-area: "devices";
+                position: relative;
+
+                nav {
+                    position: absolute;
+                    background: $dark;
+                    height: 100%;
+                    width: 150px;
+                    padding: 1rem;
+                    box-sizing: border-box;
+                    bottom: 100px;
+
+                    .device {
+                        margin: .5rem;
+                        background: $sky;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .volume {
+                display: none;
+
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-  <section id="player">
+  <section :class="{active: active}" id="player">
     <Playing v-if="currentPlayback" :currentPlayback="currentPlayback"/>
     <PlayerControls v-if="currentPlayback" :currentPlayback="currentPlayback"/>
     <DevicePicker v-if="currentPlayback"/>
@@ -22,7 +22,8 @@ export default {
   },
   data() {
     return {
-      currentPlayback: null
+      currentPlayback: null,
+      active: false
     };
   },
   mounted() {

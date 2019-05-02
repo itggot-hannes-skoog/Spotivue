@@ -7,14 +7,16 @@
         alt="cover"
       >
     </router-link>
-    <div class="info">
+    <div class="info" @click="$parent.active=true">
       <h3>{{currentPlayback.item.name}}</h3>
-      <router-link
-        :to="`/artist/${artist.id}`"
-        tag="h4"
-        v-for="artist in currentPlayback.item.artists"
-        :key="artist.id"
-      >{{artist.name}}</router-link>
+      <section class="artists">
+        <router-link
+          :to="`/artist/${artist.id}`"
+          tag="h4"
+          v-for="artist in currentPlayback.item.artists"
+          :key="artist.id"
+        >{{artist.name}}</router-link>
+      </section>
     </div>
   </div>
 </template>
