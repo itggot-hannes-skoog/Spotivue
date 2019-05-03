@@ -3,6 +3,7 @@
     <Playing v-if="currentPlayback" :currentPlayback="currentPlayback"/>
     <PlayerControls v-if="currentPlayback" :currentPlayback="currentPlayback"/>
     <DevicePicker v-if="currentPlayback"/>
+    <font-awesome-icon @click="active = false" class="close-btn" icon="times" size="2x"/>
     <Volume v-if="currentPlayback" :currentPlayback="currentPlayback"/>
   </section>
 </template>

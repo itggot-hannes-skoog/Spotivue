@@ -9,6 +9,7 @@
     />
     <main class="songs">
       <Song
+        :playlists="playlists"
         v-for="song in playlist.tracks.items"
         :key="song.track.id"
         :context="playlist.uri"
@@ -28,19 +29,26 @@ export default {
   },
   data() {
     return {
-      playlist: null
+      playlist: null,
+      playlists: null
     };
   },
   watch: {
-    $route: "getPlaylists"
+    $route: "getPlaylist"
   },
   mounted: function() {
+    this.getPlaylist();
     this.getPlaylists();
   },
   methods: {
-    getPlaylists() {
+    getPlaylist() {
       this.spotify.getPlaylist(this.$route.params.id).then(data => {
         this.playlist = data.body;
+      });
+    },
+    getPlaylists() {
+      this.spotify.getUserPlaylists().then(data => {
+        this.playlists = data.body.items;
       });
     }
   }

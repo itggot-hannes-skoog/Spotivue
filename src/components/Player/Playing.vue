@@ -13,9 +13,12 @@
         <router-link
           :to="`/artist/${artist.id}`"
           tag="h4"
-          v-for="artist in currentPlayback.item.artists"
+          v-for="(artist, i) in currentPlayback.item.artists"
           :key="artist.id"
-        >{{artist.name}}</router-link>
+        >
+          {{artist.name}}
+          <template v-if="i !== (currentPlayback.item.artists.length-1)">•&nbsp;</template>
+        </router-link>
       </section>
     </div>
   </div>

@@ -245,6 +245,37 @@ body{
                 overflow: hidden;
             }
 
+            .options {
+                background: $darker;
+                color: $light;
+                width: 200px;
+                overflow: visible;
+
+                ul {
+                    width: 100%;
+
+                    .multi {
+                        position: relative;
+
+                        &:hover {
+
+                            ul {
+                                display: block;
+                                left: 100%;
+                                top: 0px;
+                                height: 200px;
+                                overflow-y: scroll;
+                            }
+                        }
+                        ul {
+                            position: absolute;
+                            display: none;
+                            background: $darker;
+                        }
+                    }
+                }
+            }
+
             .play {
                 margin-left: 6px;
                 color: $green;
@@ -380,7 +411,11 @@ body{
         bottom: 0;
         position: fixed;
         display: grid;
-        grid-template-columns: 0.5fr 1fr 0.1fr 0.1fr;
+        grid-template-columns: 0.5fr 1fr 0.1fr 0.2fr;
+
+        .close-btn {
+            display: none;
+        }
 
         #player-controls {
             flex-direction: column;
@@ -438,6 +473,14 @@ body{
             img {
                 height: 90px;
                 object-fit: cover;
+            }
+        }
+
+        .volume {
+            @extend %center;
+            .container {
+                width: 100%;
+                margin: 1rem;
             }
         }
 
@@ -593,6 +636,13 @@ body{
                     margin-top: 2rem;
                 }
             }
+
+            >.album {
+                .song {
+                    grid-template-columns: 1fr;
+                    grid-template-rows: 2fr 1.5fr;
+                }
+            }
     
             >.search {
                 >section {
@@ -696,9 +746,17 @@ body{
             &.active {
                 height: 100vh;
                 display: grid;
-                grid-template-areas: "devices" "playing""controls";
-                grid-template-rows: 1fr 1fr 1fr;
+                grid-template-areas: "devices" "playing""controls" "volume";
+                grid-template-rows: 1fr 1fr .5fr .5fr;
                 grid-template-columns: 1fr;
+                grid-gap: 1rem;
+
+                .close-btn {
+                    display: block;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                }
 
                 #player-controls {
                     height: 60px;
@@ -714,25 +772,54 @@ body{
     
                     .playback-slider {
                         width: 90%;
+                        margin: .5rem 0;
                     }
                 }
                 .playing {
                     grid-area: playing;
                     @include center;
                     flex-direction: column;
+                    text-align: center;
     
                     img {
                         display: block;
                         width: 90vw;
-                        height: 90vw
+                        height: 90vw;
                     }
                 }
                 
                 .devices {
                     display: block;
                     grid-area: devices;
+
+                    nav {
+                        position: absolute;
+                        background: $dark;
+                        height: 100%;
+                        width: 150px;
+                        padding: 1rem;
+                        box-sizing: border-box;
+                        bottom: 100px;
+
+                        .device {
+                            margin: .5rem;
+                            background: $sky;
+                            cursor: pointer;
+                        }
+                    }
                 }
 
+                .volume {
+                    @include center;
+                    grid-area: volume;
+                    width: 200px;
+                    margin: auto;
+
+                    .container {
+                        width: 100%;
+                        margin: 1rem;
+                    }
+                }
             }
 
             #player-controls {display: none}
@@ -747,37 +834,12 @@ body{
                     flex-direction: column;
                 }
 
-                img {
-                    display: none;
-                }
+                img {display: none;}
             }
 
-            .devices {
-                display: none;
-                grid-area: "devices";
-                position: relative;
+            .devices {display: none;}
 
-                nav {
-                    position: absolute;
-                    background: $dark;
-                    height: 100%;
-                    width: 150px;
-                    padding: 1rem;
-                    box-sizing: border-box;
-                    bottom: 100px;
-
-                    .device {
-                        margin: .5rem;
-                        background: $sky;
-                        cursor: pointer;
-                    }
-                }
-            }
-
-            .volume {
-                display: none;
-
-            }
+            .volume {display: none;}
         }
     }
 }

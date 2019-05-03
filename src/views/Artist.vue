@@ -2,7 +2,7 @@
   <main v-if="artist" class="artist">
     <InfoHeader :name="artist.name" :img="artist.images[0].url"/>
     <main class="songs">
-      <Song v-for="song in topTracks" :key="song.id" :song="song"/>
+      <Song :playlists="playlists" v-for="song in topTracks" :key="song.id" :song="song"/>
     </main>
     <h1>Albums</h1>
     <hr>
@@ -48,7 +48,8 @@ export default {
       artist: null,
       topTracks: null,
       albums: null,
-      singles: null
+      singles: null,
+      playlists: null
     };
   },
   watch: {
@@ -56,6 +57,7 @@ export default {
     artist: function() {
       this.getTopTracks();
       this.getAlbums();
+      this.getPlaylists();
     }
   },
   mounted: function() {
@@ -85,6 +87,11 @@ export default {
         });
         this.albums = albums;
         this.singles = singles;
+      });
+    },
+    getPlaylists() {
+      this.spotify.getUserPlaylists().then(data => {
+        this.playlists = data.body.items;
       });
     }
   }

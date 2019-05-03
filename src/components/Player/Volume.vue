@@ -1,16 +1,20 @@
 <template>
   <div class="volume">
-    <vue-slider
-      class="volume-bar__slider"
-      v-model="volume"
-      v-on:drag-end="onDragEnd"
-      ref="slider"
-      tooltip="none"
-      :dot-size="12"
-      :max="100"
-      :process-style="{'background': '#44BBA4'}"
-      :bg-style="{'background': '#3F88C5'}"
-    ></vue-slider>
+    <font-awesome-icon icon="volume-off" size="2x"/>
+    <div class="container">
+      <vue-slider
+        class="volume-bar"
+        v-model="volume"
+        v-on:drag-end="onDragEnd"
+        ref="slider"
+        tooltip="none"
+        :dot-size="12"
+        :max="100"
+        :process-style="{'background': '#44BBA4'}"
+        :bg-style="{'background': '#3F88C5'}"
+      ></vue-slider>
+    </div>
+    <font-awesome-icon icon="volume-up" size="2x"/>
   </div>
 </template>
 
