@@ -7,30 +7,26 @@
     <h1>Albums</h1>
     <hr>
     <section class="albums">
-      <router-link
-        :to="`/album/${album.id}`"
-        tag="div"
+      <Entity
+        :route="`/album/${album.id}`"
         v-for="album in albums"
         :key="album.id"
-        class="album"
-      >
-        <h2>{{album.name.toUpperCase()}}</h2>
-        <img v-if="album.images.length > 0" :src="album.images[0].url" alt="bild">
-      </router-link>
+        class="album big text"
+        :name="album.name"
+        :img="album.images[0]"
+      />
     </section>
     <h1>Singles</h1>
     <hr>
     <section class="singles">
-      <router-link
-        :to="`/album/${single.id}`"
-        tag="div"
+      <Entity
+        :route="`/album/${single.id}`"
         v-for="single in singles"
         :key="single.id"
-        class="album"
-      >
-        <h2>{{single.name.toUpperCase()}}</h2>
-        <img v-if="single.images.length > 0" :src="single.images[0].url" alt="bild">
-      </router-link>
+        class="single big text"
+        :name="single.name"
+        :img="single.images[0]"
+      />
     </section>
   </main>
 </template>
@@ -38,10 +34,12 @@
 <script>
 import Song from "@/components/Song";
 import InfoHeader from "@/components/InfoHeader";
+import Entity from "@/components/Entity";
 export default {
   components: {
     Song,
-    InfoHeader
+    InfoHeader,
+    Entity
   },
   data() {
     return {

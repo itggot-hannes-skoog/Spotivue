@@ -1,16 +1,20 @@
 <template>
   <section v-if="currentPlayback" id="player-controls">
     <div class="playback-slider">
-      <vue-slider
-        :value="progress"
-        :max="currentPlayback.item.duration_ms"
-        :dot-size="15"
-        :process-style="{'background': '#44BBA4'}"
-        :bg-style="{'background': '#3F88C5'}"
-        :tooltip-formatter="time"
-        v-on:drag-end="onDragEnd"
-        ref="slider"
-      />
+      <span>{{this.moment.utc(progress).format("mm:ss")}}</span>
+      <div class="slider">
+        <vue-slider
+          :value="progress"
+          :max="currentPlayback.item.duration_ms"
+          :dot-size="15"
+          :process-style="{'background': '#44BBA4'}"
+          :bg-style="{'background': '#3F88C5'}"
+          :tooltip-formatter="time"
+          v-on:drag-end="onDragEnd"
+          ref="slider"
+        />
+      </div>
+      <span>{{this.moment.utc(currentPlayback.item.duration_ms).format("mm:ss")}}</span>
     </div>
     <nav class="player-controls">
       <font-awesome-icon
@@ -43,6 +47,7 @@ export default {
   },
   data() {
     return {
+      moment: moment,
       progress: 0,
       playing: null,
       progressInterval: null,
@@ -101,12 +106,12 @@ export default {
     nextSong() {
       this.spotify.skipToNext();
       this.progress = 0;
-      this.$root.$emit("songPlay")
+      this.$root.$emit("songPlay");
     },
     prevSong() {
       this.spotify.skipToPrevious();
       this.progress = 0;
-      this.$root.$emit("songPlay")
+      this.$root.$emit("songPlay");
     },
     shuffle() {
       this.shuffle_state = !this.shuffle_state;

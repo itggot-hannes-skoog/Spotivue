@@ -34,6 +34,68 @@ body{
     font-family: $open;
     color: white;
 
+    .entity {
+        position: relative;
+        height: 70px;
+        width: 70px;
+        border-radius: 1000px;
+        margin: 10px;
+        background: rgb(0, 0, 0);
+        @extend %center;
+        cursor: pointer;
+        flex: 0 0 auto;
+
+        &.big {
+            height: 120px;
+            width: 120px;
+
+            img {
+                height: 120px;
+                width: 120px;
+            }
+        }
+
+        &.text {
+            img {
+                opacity: .7;
+            }
+            
+            &:hover img {
+                opacity: .1;
+            }
+            h2 {
+                opacity: 1;
+            }
+        }
+
+        img {
+            object-fit: cover;
+            height: 70px;
+            width: 70px;
+            position: absolute;
+            border-radius: 1000px;
+            opacity: 1;
+            transition: all 0.2s ease-in-out 0s;
+        }
+
+        &:hover img {
+            opacity: 0.4;
+        }
+
+        &:hover h2 {
+            opacity: 1;
+        }
+
+        h2 {
+            color: white;
+            opacity: 0;
+            position: absolute;
+            font-family: $opencon;
+            text-align: center;
+        }
+
+    }
+
     #nav {
         background: $dark;
         display: flex;
@@ -88,28 +150,10 @@ body{
             }
 
             .playlist {
-                position: relative;
-                height: 70px;
-                width: 70px;
-                border-radius: 1000px;
                 margin: 10px;
-                background: rgb(0, 0, 0);
-                @extend %center;
-                cursor: pointer;
-                flex: 0 0 auto;
 
                 &.router-link-active img {
                     opacity: 0.4;
-                }
-
-                img {
-                    object-fit: cover;
-                    height: 70px;
-                    width: 70px;
-                    position: absolute;
-                    border-radius: 1000px;
-                    opacity: 1;
-                    transition: all 0.2s ease-in-out 0s;
                 }
 
                 &:hover img {
@@ -118,14 +162,6 @@ body{
 
                 &:hover h2 {
                     opacity: 1;
-                }
-
-                h2 {
-                    color: white;
-                    opacity: 0;
-                    position: absolute;
-                    font-family: $opencon;
-                    text-align: center;
                 }
 
             }
@@ -175,46 +211,22 @@ body{
                 }
             }
         }
+
+        >.home {
+            h1 {
+                margin: 1rem;
+                text-align: center;
+            }
+            section {
+                @extend %center;
+                flex-wrap: wrap;
+            }
+        }
         >.user {
 
             .playlists {
                 display: flex;
                 flex-wrap: wrap;
-
-                .playlist {
-                    position: relative;
-                    height: 120px;
-                    width: 120px;
-                    border-radius: 1000px;
-                    margin: 10px;
-                    background: rgb(0, 0, 0);
-                    @extend %center;
-                    cursor: pointer;
-                    flex: 0 0 auto;
-
-                    img {
-                        object-fit: cover;
-                        height: 120px;
-                        width: 120px;
-                        position: absolute;
-                        border-radius: 1000px;
-                        opacity: 0.7;
-                        transition: all 0.2s ease-in-out 0s;
-
-                        &:hover {
-                            opacity: 0.1;
-                        }
-                    }
-
-                    h2 {
-                        color: white;
-                        position: absolute;
-                        font-family: $opencon;
-                        text-align: center;
-                        z-index: 10;
-                        pointer-events: none;
-                    }
-                }
             }
         
         }
@@ -226,7 +238,7 @@ body{
         }
         
         .album .song {
-            grid-template-columns: .3fr 2fr 1fr 55px;
+            grid-template-columns: 48px 2fr 1fr 55px;
         }
 
         .song {
@@ -235,7 +247,7 @@ body{
             height: 40px;
             width: 100%;
             margin: 2px 0;
-            grid-template-columns: .3fr 2fr 1fr 1fr 55px;
+            grid-template-columns: 48px 2fr 1fr 1fr 55px;
 
 
             >* {
@@ -292,6 +304,7 @@ body{
                     display: flex;
                     flex-wrap: no-wrap;
                     white-space: nowrap;
+                    cursor: pointer;
                 }
             }
         }
@@ -305,10 +318,13 @@ body{
         }
 
         >.artist {
-            h1 {
+            
+            >h1 {
                 text-align: center;
                 margin-top: 2rem;
             }
+
+
         }
 
         >.search {
@@ -411,7 +427,7 @@ body{
         bottom: 0;
         position: fixed;
         display: grid;
-        grid-template-columns: 0.5fr 1fr 0.1fr 0.2fr;
+        grid-template-columns: 0.5fr 1fr 0.2fr 0.3fr;
 
         .close-btn {
             display: none;
@@ -452,7 +468,15 @@ body{
             }
 
             .playback-slider {
-                width: 90%;
+                width: 95%;
+                display: flex;
+                color: white;
+                font-size: 80%;
+
+                .slider {
+                    width: 100%;
+                    margin: 0 .5rem;
+                }
             }
         }
         
@@ -463,10 +487,12 @@ body{
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                margin-left: .3rem;
 
                 .artists {
                     flex-direction: row;
                     display: flex;
+                    cursor: pointer;
                 }
             }
 
@@ -486,6 +512,7 @@ body{
 
         .devices {
             position: relative;
+            @extend %center;
 
             nav {
                 position: absolute;
@@ -575,6 +602,10 @@ body{
     
                 .info {
                     font-size: 80%;
+
+                    .name {
+                        font-size: 2.7rem;
+                    }
                 }
             }
             >.user {
@@ -628,13 +659,6 @@ body{
             .songs {
                 padding: 0 .5rem;
                 
-            }
-    
-            >.artist {
-                h1 {
-                    text-align: center;
-                    margin-top: 2rem;
-                }
             }
 
             >.album {
@@ -780,6 +804,12 @@ body{
                     @include center;
                     flex-direction: column;
                     text-align: center;
+
+                    .info {
+                        h4 {
+                            pointer-events: inherit;
+                        }
+                    }
     
                     img {
                         display: block;
@@ -832,6 +862,10 @@ body{
                     width: 100%;
                     @include center;
                     flex-direction: column;
+
+                    h4 {
+                        pointer-events: none;
+                    }
                 }
 
                 img {display: none;}

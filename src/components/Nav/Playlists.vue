@@ -1,26 +1,26 @@
 <template>
   <div v-if="playlists" class="playlists">
     <vue-custom-scrollbar class="scroll-area" :settings="{suppressScrollY: true}">
-      <router-link
-        :to="`/playlist/${playlist.id}`"
-        tag="div"
+      <Entity
         v-for="playlist in playlists"
         :key="playlist.id"
         class="playlist"
         @click.native="$parent.navDown = false"
-      >
-        <img v-if="playlist.images.length > 0" :src="playlist.images[0].url" alt="bild">
-        <h2>{{playlist.name.toUpperCase()}}</h2>
-      </router-link>
+        :name="playlist.name"
+        :route="`/playlist/${playlist.id}`"
+        :img="playlist.images[0]"
+      />
     </vue-custom-scrollbar>
   </div>
 </template>
 
 <script>
 import vueCustomScrollbar from "vue-custom-scrollbar";
+import Entity from "@/components/Entity";
 export default {
   components: {
-    vueCustomScrollbar
+    vueCustomScrollbar,
+    Entity
   },
   data() {
     return {

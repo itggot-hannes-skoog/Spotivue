@@ -6,25 +6,25 @@
       :followers="user.followers.total"
     />
     <section class="playlists">
-      <router-link
-        :to="`/playlist/${playlist.id}`"
-        tag="div"
+      <Entity
+        :route="`/playlist/${playlist.id}`"
         v-for="playlist in playlists"
         :key="playlist.id"
-        class="playlist"
-      >
-        <h2>{{playlist.name.toUpperCase()}}</h2>
-        <img v-if="playlist.images.length > 0" :src="playlist.images[0].url" alt="bild">
-      </router-link>
+        :img="playlist.images[0]"
+        :name="playlist.name"
+        class="playlist big text"
+        />
     </section>
   </div>
 </template>
 
 <script>
 import InfoHeader from "@/components/InfoHeader";
+import Entity from "@/components/Entity";
 export default {
   components: {
-    InfoHeader
+    InfoHeader,
+    Entity
   },
   data() {
     return {
