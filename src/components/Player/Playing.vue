@@ -7,7 +7,7 @@
         alt="cover"
       >
     </router-link>
-    <div class="info" @click="$parent.active=true">
+    <div class="info" @click="$parent.active = !$parent.active">
       <h3>{{currentPlayback.item.name}}</h3>
       <section class="artists">
         <router-link

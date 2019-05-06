@@ -38,7 +38,6 @@
 <script>
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
-import { setTimeout } from "timers";
 import moment from "moment";
 export default {
   props: ["currentPlayback"],

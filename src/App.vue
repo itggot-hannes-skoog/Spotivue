@@ -11,7 +11,6 @@
 <script>
 import Nav from "@/components/Nav/Nav";
 import Player from "@/components/Player/Player";
-import { setTimeout } from "timers";
 
 export default {
   name: "spotivue",

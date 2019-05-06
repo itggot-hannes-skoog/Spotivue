@@ -6,37 +6,34 @@
       </main>
       <section class="artists">
       <h1>Artists</h1>
-          <router-link
-        :to="`/artist/${artist.id}`"
-        tag="div"
+      <Entity
+        :route="`/artist/${artist.id}`"
         v-for="artist in result.artists.items"
         :key="artist.id"
-        class="artist"
-      >
-        <img v-if="artist.images.length > 0" :src="artist.images[0].url" alt="bild">
-        <h2>{{artist.name}}</h2>
-      </router-link>
+        :img="artist.images[0]"
+        :name="artist.name"
+        class="artist big"
+      />
       </section>
       <section class="albums">
       <h1>Albums</h1>
-          <router-link
-        :to="`/album/${album.id}`"
-        tag="div"
+      <Entity
+        :route="`/album/${album.id}`"
         v-for="album in result.albums.items"
         :key="album.id"
-        class="album"
-      >
-        <img v-if="album.images.length > 0" :src="album.images[0].url" alt="bild">
-        <h2>{{album.name}}</h2>
-      </router-link>
+        :img="album.images[0]"
+        :name="album.name"
+        class="album big"
+      />
       </section>
   </main>
 </template>
 
 <script>
 import Song from "@/components/Song"
+import Entity from "@/components/Entity"
 export default {
-    components: {Song},
+    components: {Song, Entity},
   data() {
     return {
         result: null

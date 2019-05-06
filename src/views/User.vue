@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user" class="user">
+  <main v-if="user" class="user">
     <InfoHeader
       :name="user.display_name"
       :img="user.images[0].url"
@@ -12,10 +12,10 @@
         :key="playlist.id"
         :img="playlist.images[0]"
         :name="playlist.name"
-        class="playlist big text"
+        class="playlist big"
         />
     </section>
-  </div>
+  </main>
 </template>
 
 <script>

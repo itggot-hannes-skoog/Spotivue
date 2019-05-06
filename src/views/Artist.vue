@@ -11,7 +11,7 @@
         :route="`/album/${album.id}`"
         v-for="album in albums"
         :key="album.id"
-        class="album big text"
+        class="album big"
         :name="album.name"
         :img="album.images[0]"
       />
