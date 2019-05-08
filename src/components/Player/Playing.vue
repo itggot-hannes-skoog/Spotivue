@@ -8,7 +8,9 @@
       >
     </router-link>
     <div class="info" @click="$parent.active = !$parent.active">
-      <h3>{{currentPlayback.item.name}}</h3>
+      <div class="name">
+        <h3>{{currentPlayback.item.name}}</h3>
+      </div>
       <section class="artists">
         <router-link
           :to="`/artist/${artist.id}`"

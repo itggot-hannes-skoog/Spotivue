@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300|Poppins|Titillium+Web|Quicksand');
+@import url('https://fonts.googleapis.com/css?family=Gugi|Open+Sans|Open+Sans+Condensed:300|Poppins|Titillium+Web:400,700|Quicksand');
 * {margin: 0}
 $light: #F6F7EB;
 $red: #E94F37;
@@ -13,6 +13,7 @@ $tit: 'Titillium Web', sans-serif;
 $opencon: 'Open Sans Condensed', sans-serif;
 $pop: 'Poppins', sans-serif;
 $quick: 'Quicksand', sans-serif;
+$gugi: 'Gugi', sans-serif;
 
 @mixin center {
     display: flex;
@@ -77,21 +78,21 @@ body{
             border-radius: 1000px;
             opacity: 1;
             transition: all 0.2s ease-in-out 0s;
-        }
 
-        &:hover img {
-            opacity: 1;
-        }
-
-        &:hover h2 {
-            opacity: 1;
+            &:hover {
+                opacity: 1;
+            }
+    
+            &:hover + h2 {
+                opacity: 1;
+            }
         }
 
         h2 {
             color: white;
             opacity: 0;
             position: absolute;
-            font-family: $opencon;
+            font-family: $tit;
             text-align: center;
             position: absolute;
             transition: all 0.2s ease-in-out 0s;
@@ -103,7 +104,7 @@ body{
             max-width: 200px;
             overflow: hidden;
             text-overflow: ellipsis;
-
+            pointer-events: none;
         }
     }
 
@@ -163,6 +164,7 @@ body{
                 height: 40px;
                 border-radius: 1000px;
             }
+            font-family: $tit;
         }
 
         .playlists {
@@ -220,6 +222,31 @@ body{
             padding-bottom: 90px!important;
         }
 
+        .song-list {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            padding: 0 5rem;
+            box-sizing: border-box;
+
+            header {
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr 55px;
+                padding-left: 48px;
+                box-sizing: border-box;
+                margin-bottom: .6rem;
+
+                hr {
+                    max-width: 100%;
+                    width: 70px;
+                    margin: inherit;
+                }
+            }
+
+            .songs {
+            }
+        }
+
         .info-header {
             @extend %center;
             height: 200px;
@@ -237,6 +264,7 @@ body{
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                font-family: $quick;
 
                 .name {
                     overflow: hidden;
@@ -244,14 +272,21 @@ body{
                     display: -webkit-box;
                     -webkit-line-clamp: 2;
                     -webkit-box-orient: vertical;
+                    font-family: $tit;
 
                     h1 {
                         font-size: 3.4rem;
                         max-width: 800px;
+                        font-weight: 700;
                     }
                 }
 
                 .owner {
+                    cursor: pointer;
+                }
+
+                .artists {
+                    display: flex;
                     cursor: pointer;
                 }
             }
@@ -286,6 +321,14 @@ body{
             grid-template-columns: 48px 2fr 1fr 55px;
         }
 
+        .album .song-list header {
+            grid-template-columns: 2fr 1fr 55px;
+
+            span:nth-child(3) {
+                display: none;
+            }
+        }
+
         .song {
             display: grid;
             background: $dark;
@@ -300,6 +343,20 @@ body{
                 align-items: center;
                 white-space: nowrap;
                 overflow: hidden;
+            }
+
+            h2 {
+                font-weight: 500;
+                cursor: pointer;
+            }
+
+            h3 {
+                font-weight: 500;
+            }
+
+            h4 {
+                font-weight: 500;
+                cursor: pointer;
             }
 
             .options {
@@ -344,14 +401,6 @@ body{
                 white-space: nowrap;
                 overflow: hidden;
             }
-        }
-
-        .songs {
-            display: flex;
-            width: 100%;
-            flex-direction: column;
-            padding: 0 5rem;
-            box-sizing: border-box;
         }
 
         >.artist {
@@ -471,7 +520,14 @@ body{
                 flex-direction: column;
                 justify-content: center;
                 margin-left: .3rem;
-                max-width: 180px;
+                min-width: 180px;
+
+                .name {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
 
                 .artists {
                     flex-direction: row;

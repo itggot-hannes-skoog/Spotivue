@@ -1,9 +1,7 @@
 <template>
   <main v-if="artist" class="artist">
     <InfoHeader :name="artist.name" :img="artist.images[0].url"/>
-    <main class="songs">
-      <Song :playlists="playlists" v-for="song in topTracks" :key="song.id" :song="song"/>
-    </main>
+    <SongList :songs="topTracks" :context="artist.uri"/>
     <section v-if="albums.length != 0" class="albums">
       <h1>Albums</h1>
       <hr>
@@ -51,13 +49,15 @@
 
 <script>
 import Song from "@/components/Song";
+import SongList from "@/components/SongList";
 import InfoHeader from "@/components/InfoHeader";
 import Entity from "@/components/Entity";
 export default {
   components: {
     Song,
     InfoHeader,
-    Entity
+    Entity,
+    SongList
   },
   data() {
     return {
@@ -75,7 +75,7 @@ export default {
       this.getTopTracks();
       this.getAlbums();
       this.getPlaylists();
-    }
+    },
   },
   mounted: function() {
     this.getArtist();

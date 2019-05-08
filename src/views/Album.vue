@@ -6,19 +6,19 @@
       :artists="album.artists"
       :tracks="album.tracks.total"
     />
-    <main class="songs">
-      <Song :playlists="playlists" v-for="song in album.tracks.items" :key="song.id" :context="album.uri" :song="song"/>
-    </main>
+    <SongList :context="album.uri" :songs="album.tracks.items"/>
   </main>
 </template>
 
 <script>
+import SongList from "@/components/SongList";
 import Song from "@/components/Song";
 import InfoHeader from "@/components/InfoHeader";
 export default {
   components: {
     Song,
-    InfoHeader
+    InfoHeader,
+    SongList
   },
   data() {
     return {

@@ -1,26 +1,30 @@
 <template>
   <div @contextmenu.prevent="$refs.options.open" class="song">
-    <i class="play" @click="play(song.uri)">
+    <i class="play" @click="play()">
       <font-awesome-icon icon="play-circle" size="2x"/>
     </i>
     <div class="ellipsis">
-      <h2>{{song.name}}</h2>
+      <h2>{{fixedSong.name}}</h2>
     </div>
     <section class="artists">
       <router-link
         :to="`/artist/${artist.id}`"
         tag="h4"
-        v-for="(artist, i) in song.artists"
+        v-for="(artist, i) in fixedSong.artists"
         :key="artist.id"
       >
         {{artist.name}}
-        <template v-if="i !== (song.artists.length-1)">•&nbsp;</template>
+        <template v-if="i !== (fixedSong.artists.length-1)">•&nbsp;</template>
       </router-link>
     </section>
-    <div v-if="song.album" class="ellipsis">
-      <router-link class="album" tag="h4" :to="`/album/${song.album.id}`">{{song.album.name}}</router-link>
+    <div v-if="fixedSong.album" class="ellipsis">
+      <router-link
+        class="album"
+        tag="h4"
+        :to="`/album/${fixedSong.album.id}`"
+      >{{fixedSong.album.name}}</router-link>
     </div>
-    <h3>{{moment.utc(song.duration_ms).format('mm:ss')}}</h3>
+    <h3>{{moment.utc(fixedSong.duration_ms).format('mm:ss')}}</h3>
 
     <vue-context class="options" ref="options">
       <ul>
@@ -52,13 +56,29 @@ export default {
   },
   data() {
     return {
-      moment: moment
+      moment: moment,
+      fixedSong: null
     };
   },
+  watch: {
+    song: function() {
+      this.ifTrack()
+    }
+  },
+  beforeMount: function() {
+    this.ifTrack();
+  },
   methods: {
-    play(uri) {
-      this.spotify.play({ context_uri: this.context, offset: { uri: uri } });
+    play() {
+      this.spotify.play({ context_uri: this.context, offset: { uri: this.fixedSong.uri } });
       this.$root.$emit("songPlay");
+    },
+    ifTrack() {
+      if (this.song.track) {
+        this.fixedSong = this.song.track;
+      } else {
+        this.fixedSong = this.song;
+      }
     },
     addToPlaylist(playlist) {
       this.spotify.addTracksToPlaylist(playlist.id, [this.song.uri]);

@@ -7,25 +7,19 @@
       :followers="playlist.followers.total"
       :tracks="playlist.tracks.total"
     />
-    <main class="songs">
-      <Song
-        :playlists="playlists"
-        v-for="song in playlist.tracks.items"
-        :key="song.track.id"
-        :context="playlist.uri"
-        :song="song.track"
-      />
-    </main>
+    <SongList :context="playlist.uri" :songs="playlist.tracks.items"/>
   </main>
 </template>
 
 <script>
 import Song from "@/components/Song.vue";
+import SongList from "@/components/SongList.vue";
 import InfoHeader from "@/components/InfoHeader";
 export default {
   components: {
     Song,
-    InfoHeader
+    InfoHeader,
+    SongList
   },
   data() {
     return {

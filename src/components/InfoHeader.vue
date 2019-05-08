@@ -20,7 +20,7 @@
           :key="artist.id"
         >
           {{artist.name}}
-          <template v-if="i !== (artists.length-1)">,&nbsp;</template>
+          <template v-if="i !== (artists.length-1)">•&nbsp;</template>
         </router-link>
       </section>
       <h3 class="tracks" v-if="tracks">{{tracks}} tracks</h3>
