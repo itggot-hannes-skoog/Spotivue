@@ -1,5 +1,5 @@
 <template>
-  <section :class="{active: active}" id="player">
+  <section v-if="currentPlayback" :class="{active: active}" id="player">
     <Playing v-if="currentPlayback" :currentPlayback="currentPlayback"/>
     <PlayerControls v-if="currentPlayback" :currentPlayback="currentPlayback"/>
     <DevicePicker v-if="currentPlayback"/>

@@ -6,19 +6,17 @@
     <div class="ellipsis">
       <h2>{{song.name}}</h2>
     </div>
-    <div class="ellipsis">
-      <section class="artists">
-        <router-link
-          :to="`/artist/${artist.id}`"
-          tag="h4"
-          v-for="(artist, i) in song.artists"
-          :key="artist.id"
-        >
-          {{artist.name}}
-          <template v-if="i !== (song.artists.length-1)">•&nbsp;</template>
-        </router-link>
-      </section>
-    </div>
+    <section class="artists">
+      <router-link
+        :to="`/artist/${artist.id}`"
+        tag="h4"
+        v-for="(artist, i) in song.artists"
+        :key="artist.id"
+      >
+        {{artist.name}}
+        <template v-if="i !== (song.artists.length-1)">•&nbsp;</template>
+      </router-link>
+    </section>
     <div v-if="song.album" class="ellipsis">
       <router-link class="album" tag="h4" :to="`/album/${song.album.id}`">{{song.album.name}}</router-link>
     </div>

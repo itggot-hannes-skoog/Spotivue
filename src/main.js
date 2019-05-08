@@ -17,6 +17,10 @@ import VueSession from 'vue-session'
 
 Vue.use(VueSession)
 
+import lineClamp from 'vue-line-clamp'
+ 
+Vue.use(lineClamp)
+
 Vue.config.productionTip = false
 
 new Vue({

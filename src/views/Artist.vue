@@ -4,29 +4,47 @@
     <main class="songs">
       <Song :playlists="playlists" v-for="song in topTracks" :key="song.id" :song="song"/>
     </main>
-    <h1>Albums</h1>
-    <hr>
-    <section class="albums">
-      <Entity
-        :route="`/album/${album.id}`"
-        v-for="album in albums"
-        :key="album.id"
-        class="album big"
-        :name="album.name"
-        :img="album.images[0]"
-      />
+    <section v-if="albums.length != 0" class="albums">
+      <h1>Albums</h1>
+      <hr>
+      <div class="container">
+        <Entity
+          :route="`/album/${album.id}`"
+          v-for="album in albums"
+          :key="album.id"
+          class="album big"
+          :name="album.name"
+          :img="album.images[0]"
+        />
+      </div>
     </section>
-    <h1>Singles</h1>
-    <hr>
-    <section class="singles">
-      <Entity
-        :route="`/album/${single.id}`"
-        v-for="single in singles"
-        :key="single.id"
-        class="single big text"
-        :name="single.name"
-        :img="single.images[0]"
-      />
+    <section v-if="singles.length != 0" class="singles">
+      <h1>Singles</h1>
+      <hr>
+      <div class="container">
+        <Entity
+          :route="`/album/${single.id}`"
+          v-for="single in singles"
+          :key="single.id"
+          class="single big"
+          :name="single.name"
+          :img="single.images[0]"
+        />
+      </div>
+    </section>
+    <section v-if="appears_on.length != 0" class="appears-on">
+      <h1>Appears On</h1>
+      <hr>
+      <div class="container">
+        <Entity
+          :route="`/album/${item.id}`"
+          v-for="item in appears_on"
+          :key="item.id"
+          class="item big"
+          :name="item.name"
+          :img="item.images[0]"
+        />
+      </div>
     </section>
   </main>
 </template>
@@ -47,7 +65,8 @@ export default {
       topTracks: null,
       albums: null,
       singles: null,
-      playlists: null
+      playlists: null,
+      appears_on: null
     };
   },
   watch: {
@@ -75,14 +94,18 @@ export default {
     getAlbums() {
       let albums = [];
       let singles = [];
+      let appears_on = [];
       this.spotify.getArtistAlbums(this.artist.id).then(data => {
         data.body.items.forEach(item => {
           if (item.album_group == "album") {
             albums.push(item);
-          } else {
+          } else if (item.album_group == "single") {
             singles.push(item);
+          } else {
+            appears_on.push(item);
           }
         });
+        this.appears_on = appears_on;
         this.albums = albums;
         this.singles = singles;
       });

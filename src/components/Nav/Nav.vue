@@ -1,15 +1,18 @@
 <template>
   <section id="nav">
-    <router-link to="/" tag="div" class="logo">
-      <img src="@/assets/logo.png" alt="logo">
-    </router-link>
-    <font-awesome-icon @click="navDown = true" class="nav-btn" icon="bars" size="2x"/>
+    <header>
+      <router-link to="/" tag="div" class="logo">
+        <img src="@/assets/logo.png" alt="logo">
+      </router-link>
+      <font-awesome-icon @click="navDown = true" class="nav-btn" icon="bars" size="2x"/>
+    </header>
     <div :class="{active: navDown}" class="container">
       <Playlists/>
       <SearchBar/>
       <UserInfo/>
       <font-awesome-icon @click="navDown = false" class="close-btn" icon="times" size="2x"/>
     </div>
+    <div @click="navDown=false" :class="{active: navDown}" class="overlay"></div>
   </section>
 </template>
 
@@ -23,7 +26,7 @@ export default {
   data() {
     return {
       navDown: false
-    }
+    };
   }
 };
 </script>
