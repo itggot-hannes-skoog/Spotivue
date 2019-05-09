@@ -1,6 +1,6 @@
 <template>
   <div class="playing">
-    <router-link :to="`/${redirect.type}/${redirect.id}`">
+    <router-link  @click="$parent.active = !$parent.active" :to="`/${redirect.type}/${redirect.id}`">
       <img
         v-if="currentPlayback.item.album.images.length > 0"
         :src="currentPlayback.item.album.images[1].url"

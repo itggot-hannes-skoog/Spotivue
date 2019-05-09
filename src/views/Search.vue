@@ -1,11 +1,9 @@
 <template>
   <main v-if="result" class="search">
-      <main class="songs">
-      <h1>Songs</h1>
-          <Song v-for="song in result.tracks.items" :key="song.id" :song="song"/>
-      </main>
-      <section class="artists">
-      <h1>Artists</h1>
+    <SongList :songs="result.tracks.items"/>
+    <h1>Artists</h1>
+    <hr>
+    <section class="artists">
       <Entity
         :route="`/artist/${artist.id}`"
         v-for="artist in result.artists.items"
@@ -14,9 +12,10 @@
         :name="artist.name"
         class="artist big"
       />
-      </section>
-      <section class="albums">
-      <h1>Albums</h1>
+    </section>
+    <h1>Albums</h1>
+    <hr>
+    <section class="albums">
       <Entity
         :route="`/album/${album.id}`"
         v-for="album in result.albums.items"
@@ -25,32 +24,37 @@
         :name="album.name"
         class="album big"
       />
-      </section>
+    </section>
   </main>
 </template>
 
 <script>
-import Song from "@/components/Song"
-import Entity from "@/components/Entity"
+import Song from "@/components/Song";
+import SongList from "@/components/SongList";
+import Entity from "@/components/Entity";
 export default {
-    components: {Song, Entity},
+  components: { Song, Entity, SongList },
   data() {
     return {
-        result: null
+      result: null
     };
   },
   mounted: function() {
-      this.search()
+    this.search();
   },
   methods: {
     search() {
-        this.spotify.search(this.$route.params.str, ['track', 'artist', 'album'], { limit : 5}).then(data => {
-            this.result = data.body
+      this.spotify
+        .search(this.$route.params.str, ["track", "artist", "album"], {
+          limit: 5
         })
+        .then(data => {
+          this.result = data.body;
+        });
     }
   },
   watch: {
-    '$route': 'search'
+    $route: "search"
   }
 };
 </script>

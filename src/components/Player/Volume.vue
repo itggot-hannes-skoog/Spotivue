@@ -1,6 +1,6 @@
 <template>
   <div class="volume">
-    <font-awesome-icon icon="volume-off" size="2x"/>
+    <font-awesome-icon icon="volume-off" size="1x"/>
     <div class="container">
       <vue-slider
         class="volume-bar"
@@ -14,7 +14,7 @@
         :bg-style="{'background': '#3F88C5'}"
       ></vue-slider>
     </div>
-    <font-awesome-icon icon="volume-up" size="2x"/>
+    <font-awesome-icon icon="volume-up" size="1x"/>
   </div>
 </template>
 
@@ -35,6 +35,9 @@ export default {
     currentPlayback() {
       this.volume = this.currentPlayback.device.volume_percent;
     }
+  },
+  beforeMount: function() {
+    this.volume = this.currentPlayback.device.volume_percent;
   },
   methods: {
     onDragEnd() {
