@@ -18,14 +18,14 @@ var hostname = 'localhost';
 
 var client_id = process.env.CLIENT_ID // Your client id
 var client_secret = process.env.CLIENT_SECRET // Your secret
-var redirect_uri = 'http://localhost:8888/test'; // Your redirect uri
+var redirect_uri = 'http://localhost:8888/scallback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
  * @return {string} The generated string
  */
-var generateRandomString = function(length) {
+var generateRandomString = function (length) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -38,13 +38,22 @@ var generateRandomString = function(length) {
 var stateKey = 'spotify_auth_state';
 
 var app = express();
+const staticFileMiddleware = express.static(__dirname + '/dist');
 
-app.use(express.static(__dirname + '/dist'))
-   .use(cors())
-   .use(cookieParser())
-   .use(history());
+app.use(staticFileMiddleware);
+app.use(history({
+  disableDotRule: true,
+  verbose: true,
+  rewrites: [
+    { from: /\/login/, to: '/login'},
+    { from: /\/scallback/, to: '/scallback'}
+  ]
+}))
+  .use(cors())
+  .use(cookieParser())
+app.use(staticFileMiddleware)
 
-app.get('/login', function(req, res) {
+app.get('/login', function (req, res) {
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -61,7 +70,7 @@ app.get('/login', function(req, res) {
     }));
 });
 
-app.get('/test', function(req, res) {
+app.get('/scallback', function (req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
@@ -90,12 +99,12 @@ app.get('/test', function(req, res) {
       json: true
     };
 
-    request.post(authOptions, function(error, response, body) {
+    request.post(authOptions, function (error, response, body) {
       if (!error && response.statusCode === 200) {
 
         var access_token = body.access_token,
-            refresh_token = body.refresh_token,
-            expires_in = body.expires_in;
+          refresh_token = body.refresh_token,
+          expires_in = body.expires_in;
 
         var options = {
           url: 'https://api.spotify.com/v1/me',
@@ -104,14 +113,14 @@ app.get('/test', function(req, res) {
         };
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('http://localhost:8888/callback?' +
+        res.redirect('http://localhost:8888/scallback?' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token,
             expires_in: expires_in
           }));
       } else {
-        res.redirect('http://localhost:8888/callback?' +
+        res.redirect('http://localhost:8888/scallback?' +
           querystring.stringify({
             error: 'invalid_token'
           }));
@@ -120,7 +129,7 @@ app.get('/test', function(req, res) {
   }
 });
 
-app.get('/refresh_token', function(req, res) {
+app.get('/refresh_token', function (req, res) {
 
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
@@ -134,7 +143,7 @@ app.get('/refresh_token', function(req, res) {
     json: true
   };
 
-  request.post(authOptions, function(error, response, body) {
+  request.post(authOptions, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       var access_token = body.access_token;
       res.send({
@@ -144,5 +153,5 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 app.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-  });
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
