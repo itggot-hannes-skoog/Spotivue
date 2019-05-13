@@ -12,12 +12,10 @@
 </template>
 
 <script>
-import Song from "@/components/Song.vue";
 import SongList from "@/components/SongList.vue";
 import InfoHeader from "@/components/InfoHeader";
 export default {
   components: {
-    Song,
     InfoHeader,
     SongList
   },

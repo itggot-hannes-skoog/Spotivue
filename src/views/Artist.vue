@@ -48,13 +48,11 @@
 </template>
 
 <script>
-import Song from "@/components/Song";
 import SongList from "@/components/SongList";
 import InfoHeader from "@/components/InfoHeader";
 import Entity from "@/components/Entity";
 export default {
   components: {
-    Song,
     InfoHeader,
     Entity,
     SongList

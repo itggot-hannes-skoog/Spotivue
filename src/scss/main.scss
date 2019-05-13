@@ -6,7 +6,6 @@ $skylight: rgb(100, 169, 197);
 $dark:	#0A0B10;
 $darker: #0E111A;
 $green: #44BBA4;
-$greener: rgb(20, 70, 46);
 $darktext: #14181C;
 $sky: rgb(85, 113, 136);
 $lighttext: rgb(227, 228, 220);
@@ -468,6 +467,10 @@ body{
             display: none;
         }
 
+        .menu-btn {
+            display: none;
+        }
+
         #player-controls {
             flex-direction: column;
             @extend %center;
@@ -655,7 +658,8 @@ body{
                     display: flex;
                     flex-direction: column;
                     width: 100%;
-                    margin-top: 2rem;
+                    margin-top: 1rem;
+                    height: auto;
                 }
                 .search-bar {
                     margin: 1rem;
@@ -813,7 +817,9 @@ body{
                     display: block;
                     position: absolute;
                     top: 10px;
-                    right: 10px;
+                    right: 0;
+                    left: 0;
+                    margin: auto;
                 }
 
                 #player-controls {
@@ -890,6 +896,30 @@ body{
                         margin: 1rem;
                     }
                 }
+
+                .options {
+                    position: absolute;
+                    background: $darker;
+                    color: $light;
+                    width: 200px;
+                    overflow: visible;
+    
+                    ul {
+                        width: 100%;
+                        list-style: none;
+                    }
+                }
+
+                .menu-btn {
+                    display: block;
+                    position: absolute;
+                    right: 10px;
+                    top: 10px;
+                }
+            }
+
+            .menu-btn {
+                display: none;
             }
 
             #player-controls {display: none}

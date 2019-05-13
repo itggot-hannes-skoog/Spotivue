@@ -5,7 +5,7 @@
 <script>
 export default {
   name: "Callback",
-  created: function() {
+  created: async function() {
     const {
       access_token,
       refresh_token,
@@ -15,8 +15,8 @@ export default {
     if (error) {
       console.error(error);
     } else if (access_token && refresh_token && expires_in) {
-      this.$session.start();
-      this.$session.set("tokens", {access_token, refresh_token, expires_in});
+      await this.$session.start();
+      await this.$session.set("tokens", {access_token, refresh_token, expires_in});
     }
     this.$router.push("/");
   }

@@ -12,11 +12,9 @@
 
 <script>
 import SongList from "@/components/SongList";
-import Song from "@/components/Song";
 import InfoHeader from "@/components/InfoHeader";
 export default {
   components: {
-    Song,
     InfoHeader,
     SongList
   },

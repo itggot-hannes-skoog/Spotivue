@@ -29,11 +29,10 @@
 </template>
 
 <script>
-import Song from "@/components/Song";
 import SongList from "@/components/SongList";
 import Entity from "@/components/Entity";
 export default {
-  components: { Song, Entity, SongList },
+  components: { Entity, SongList },
   data() {
     return {
       result: null
